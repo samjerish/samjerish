@@ -1,16 +1,18 @@
-## Hi there 👋
+# Hi there, I'm Sam Jerish D <img src="wave.svg?v=3" width="35" align="center" />
 
-<!--
-**samjerish/samjerish** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+<div align="center">
+  <img src="terminal.svg?v=3" alt="Terminal UI" />
+</div>
 
-Here are some ideas to get you started:
+## 🌐 Connect with me
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+<p align="left">
+<a href="mailto:samjerishd@gmail.com"><img src="https://img.shields.io/badge/Email-samjerishd%40gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
+<a href="https://linkedin.com/in/samjerishd"><img src="https://img.shields.io/badge/LinkedIn-samjerishd-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
+<a href="https://instagram.com/samjerishd"><img src="https://img.shields.io/badge/Instagram-samjerishd-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram" /></a>
+</p>
+
+---
+<div align="center">
+  <img src="footer.svg?v=3" alt="Let's build something amazing together!" />
+</div>
