@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 160 50" width="160" height="50">
+  <style>
+    .text {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      font-size: 15px;
+      font-weight: bold;
+      fill: #ffffff;
+      letter-spacing: 0.5px;
+    }
+  </style>
+  <defs>
+    <linearGradient id="grad_LinkedIn" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0077B5" />
+      <stop offset="100%" stop-color="#00A0DC" />
+      <animate attributeName="x1" values="0%;100%;0%" dur="3s" repeatCount="indefinite" />
+      <animate attributeName="x2" values="100%;0%;100%" dur="3s" repeatCount="indefinite" />
+    </linearGradient>
+    <linearGradient id="grad2_LinkedIn" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00A0DC" />
+      <stop offset="100%" stop-color="#0077B5" />
+      <animate attributeName="x1" values="100%;0%;100%" dur="3s" repeatCount="indefinite" />
+      <animate attributeName="x2" values="0%;100%;0%" dur="3s" repeatCount="indefinite" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer glowing ring -->
+  <rect x="5" y="5" width="150" height="40" rx="20" fill="none" stroke="url(#grad_LinkedIn)" stroke-width="4" opacity="0.6">
+    <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" repeatCount="indefinite" />
+    <animate attributeName="stroke-width" values="3;6;3" dur="2s" repeatCount="indefinite" />
+  </rect>
+  
+  <!-- Main Button Background -->
+  <rect x="5" y="5" width="150" height="40" rx="20" fill="#0d1117" stroke="url(#grad2_LinkedIn)" stroke-width="2" />
+  
+  <!-- Icon -->
+  <g transform="translate(16, 14) scale(0.8)" fill="url(#grad_LinkedIn)">
+    <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="45" y="31" class="text">LinkedIn</text>
+</svg>
