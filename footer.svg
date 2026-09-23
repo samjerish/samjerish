@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 48" width="750" height="48">
+  <style>
+    .terminal-footer {
+      font-family: 'Fira Code', 'JetBrains Mono', Consolas, monospace;
+      font-size: 15px;
+      font-weight: 600;
+      fill: #8b949e;
+    }
+    .accent {
+      fill: #58a6ff;
+      font-weight: 700;
+    }
+    .cursor {
+      fill: #3fb950;
+      animation: blink 0.9s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+  </style>
+  <defs>
+    <linearGradient id="footerLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#30363d" stop-opacity="0" />
+      <stop offset="50%" stop-color="#58a6ff" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#30363d" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+  
+  <line x1="40" y1="2" x2="710" y2="2" stroke="url(#footerLine)" stroke-width="1.5" />
+  
+  <text x="375" y="30" text-anchor="middle" class="terminal-footer">
+    <tspan fill="#3fb950">❯ </tspan>Let&apos;s build something <tspan class="accent">revolutionary</tspan> together! <tspan class="cursor">█</tspan>
+  </text>
+</svg>

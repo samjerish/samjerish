@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 44" width="170" height="44">
+  <defs>
+    <linearGradient id="btnBg_Email" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#161b22" />
+      <stop offset="100%" stop-color="#0d1117" />
+    </linearGradient>
+    <linearGradient id="border_Email" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff7b72" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#30363d" />
+    </linearGradient>
+  </defs>
+
+  <!-- Button Card -->
+  <rect x="1.5" y="1.5" width="167" height="41" rx="8" fill="url(#btnBg_Email)" stroke="url(#border_Email)" stroke-width="1.6" />
+
+  <!-- Prompt prefix -->
+  <text x="12" y="27" font-family="'Fira Code', 'JetBrains Mono', monospace" font-size="13px" fill="#ff7b72" font-weight="700">❯</text>
+
+  <!-- Icon -->
+  <g transform="translate(26, 11) scale(0.92)" fill="#ff7b72">
+    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+  </g>
+
+  <!-- Label -->
+  <text x="54" y="27" font-family="'Fira Code', -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace" font-size="13px" font-weight="700" fill="#f0f6fc" letter-spacing="0.4px">Email</text>
+</svg>
