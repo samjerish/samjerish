@@ -54,17 +54,17 @@
   <g>
     <text class="font-mono line" x="28" y="74"><tspan fill="#3fb950" font-weight="700">samjerish@quantum-core:~$</tspan> <tspan fill="#58a6ff" font-weight="600">whoami --bio</tspan></text>
     <text class="font-mono line" x="28" y="98"><tspan fill="#d2a8ff" font-size="18px" font-weight="800">⚡ SAM JERISH D</tspan></text>
-    <text class="font-mono line" x="28" y="122"><tspan fill="#79c0ff" font-weight="600">❯ AI & Machine Learning Student  •  Full-Stack Developer</tspan></text>
-    <text class="font-mono line" x="28" y="146"><tspan fill="#8b949e" font-style="italic">  "Passionate about AI, Robotics, Computer Vision, and turning into real-world solutions."</tspan></text>
+    <text class="font-mono line" x="28" y="122"><tspan fill="#79c0ff" font-weight="600">❯ AI &amp; Machine Learning Student  •  Full-Stack Developer</tspan></text>
+    <text class="font-mono line" x="28" y="146"><tspan fill="#8b949e" font-style="italic">  &quot;Passionate about AI, Robotics, Computer Vision, and turning into real-world solutions.&quot;</tspan></text>
     <text class="font-mono line" x="28" y="184"><tspan fill="#3fb950" font-weight="700">samjerish@quantum-core:~$</tspan> <tspan fill="#58a6ff" font-weight="600">neofetch --developer</tspan></text>
     <text class="font-mono line" x="28" y="208"><tspan fill="#ff7b72" font-weight="700">  [OS]</tspan><tspan fill="#c9d1d9"> : </tspan><tspan fill="#f0883e">macOS Sonoma (Darwin arm64)</tspan></text>
-    <text class="font-mono line" x="28" y="232"><tspan fill="#ff7b72" font-weight="700">  [Host]</tspan><tspan fill="#c9d1d9"> : </tspan><tspan fill="#f0883e">AI, Vision & Robotics Workstation</tspan></text>
-    <text class="font-mono line" x="28" y="256"><tspan fill="#ff7b72" font-weight="700">  [Focus]</tspan><tspan fill="#c9d1d9"> : </tspan><tspan fill="#f0883e">Artificial Intelligence, Deep Learning & Computer Vision</tspan></text>
-    <text class="font-mono line" x="28" y="280"><tspan fill="#ff7b72" font-weight="700">  [Robotics]</tspan><tspan fill="#c9d1d9"> : </tspan><tspan fill="#f0883e">Intelligent Navigation, Obstacle Avoidance & Perception</tspan></text>
+    <text class="font-mono line" x="28" y="232"><tspan fill="#ff7b72" font-weight="700">  [Host]</tspan><tspan fill="#c9d1d9"> : </tspan><tspan fill="#f0883e">AI, Vision &amp; Robotics Workstation</tspan></text>
+    <text class="font-mono line" x="28" y="256"><tspan fill="#ff7b72" font-weight="700">  [Focus]</tspan><tspan fill="#c9d1d9"> : </tspan><tspan fill="#f0883e">Artificial Intelligence, Deep Learning &amp; Computer Vision</tspan></text>
+    <text class="font-mono line" x="28" y="280"><tspan fill="#ff7b72" font-weight="700">  [Robotics]</tspan><tspan fill="#c9d1d9"> : </tspan><tspan fill="#f0883e">Intelligent Navigation, Obstacle Avoidance &amp; Perception</tspan></text>
     <text class="font-mono line" x="28" y="304"><tspan fill="#ff7b72" font-weight="700">  [Stack]</tspan><tspan fill="#c9d1d9"> : </tspan><tspan fill="#f0883e">Python, C++, PyTorch, OpenCV, React, Node.js, SQL</tspan></text>
-    <text class="font-mono line" x="28" y="328"><tspan fill="#ff7b72" font-weight="700">  [Status]</tspan><tspan fill="#c9d1d9"> : </tspan><tspan fill="#f0883e">Developing real-world autonomous systems & scalable apps 🚀</tspan></text>
+    <text class="font-mono line" x="28" y="328"><tspan fill="#ff7b72" font-weight="700">  [Status]</tspan><tspan fill="#c9d1d9"> : </tspan><tspan fill="#f0883e">Developing real-world autonomous systems &amp; scalable apps 🚀</tspan></text>
     <text class="font-mono line" x="28" y="366"><tspan fill="#3fb950" font-weight="700">samjerish@quantum-core:~$</tspan> <tspan fill="#58a6ff" font-weight="600">git status --contributions</tspan></text>
-    <text class="font-mono line" x="28" y="390"><tspan fill="#e3b341">  ⎇ On branch main -> Ahead of 'origin/main' with continuous commits</tspan></text>
+    <text class="font-mono line" x="28" y="390"><tspan fill="#e3b341">  ⎇ On branch main -&gt; Ahead of &#x27;origin/main&#x27; with continuous commits</tspan></text>
     <text class="font-mono line" x="28" y="414"><tspan fill="#3fb950" font-weight="600">  ✔ 100% committed to engineering impactful software</tspan></text>
     <text class="font-mono line" x="28" y="452"><tspan fill="#3fb950" font-weight="700">samjerish@quantum-core:~$</tspan> <tspan class="cursor">█</tspan></text>
   </g>

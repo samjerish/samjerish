@@ -1,4 +1,7 @@
-import os
+import html
+
+def escape_xml(s):
+    return html.escape(str(s), quote=True)
 
 def generate_terminal_svg(output_path="terminal.svg"):
     lines = [
@@ -42,61 +45,71 @@ def generate_terminal_svg(output_path="terminal.svg"):
             continue
 
         if item_type == "cmd":
+            prompt = escape_xml(item["prompt"])
+            cmd = escape_xml(item["cmd"])
             svg_content.append(
                 f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
-                f'<tspan fill="#3fb950" font-weight="700">{item["prompt"]}</tspan> '
-                f'<tspan fill="#58a6ff" font-weight="600">{item["cmd"]}</tspan>'
+                f'<tspan fill="#3fb950" font-weight="700">{prompt}</tspan> '
+                f'<tspan fill="#58a6ff" font-weight="600">{cmd}</tspan>'
                 f'</text>'
             )
 
         elif item_type == "title":
+            text = escape_xml(item["text"])
             svg_content.append(
                 f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
-                f'<tspan fill="#d2a8ff" font-size="18px" font-weight="800">⚡ {item["text"]}</tspan>'
+                f'<tspan fill="#d2a8ff" font-size="18px" font-weight="800">⚡ {text}</tspan>'
                 f'</text>'
             )
 
         elif item_type == "badge":
+            text = escape_xml(item["text"])
             svg_content.append(
                 f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
-                f'<tspan fill="#79c0ff" font-weight="600">❯ {item["text"]}</tspan>'
+                f'<tspan fill="#79c0ff" font-weight="600">❯ {text}</tspan>'
                 f'</text>'
             )
 
         elif item_type == "quote":
+            text = escape_xml(item["text"])
             svg_content.append(
                 f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
-                f'<tspan fill="#8b949e" font-style="italic">  "{item["text"]}"</tspan>'
+                f'<tspan fill="#8b949e" font-style="italic">  &quot;{text}&quot;</tspan>'
                 f'</text>'
             )
 
         elif item_type == "spec":
+            key = escape_xml(item["key"])
+            val = escape_xml(item["val"])
             svg_content.append(
                 f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
-                f'<tspan fill="#ff7b72" font-weight="700">  [{item["key"]}]</tspan>'
+                f'<tspan fill="#ff7b72" font-weight="700">  [{key}]</tspan>'
                 f'<tspan fill="#c9d1d9"> : </tspan>'
-                f'<tspan fill="#f0883e">{item["val"]}</tspan>'
+                f'<tspan fill="#f0883e">{val}</tspan>'
                 f'</text>'
             )
 
         elif item_type == "git_branch":
+            text = escape_xml(item["text"])
             svg_content.append(
                 f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
-                f'<tspan fill="#e3b341">  ⎇ {item["text"]}</tspan>'
+                f'<tspan fill="#e3b341">  ⎇ {text}</tspan>'
                 f'</text>'
             )
 
         elif item_type == "git_success":
+            text = escape_xml(item["text"])
             svg_content.append(
                 f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
-                f'<tspan fill="#3fb950" font-weight="600">  {item["text"]}</tspan>'
+                f'<tspan fill="#3fb950" font-weight="600">  {text}</tspan>'
                 f'</text>'
             )
 
         elif item_type == "prompt_cursor":
+            prompt = escape_xml(item["prompt"])
             svg_content.append(
                 f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
-                f'<tspan fill="#3fb950" font-weight="700">{item["prompt"]}</tspan> '
+                f'<tspan fill="#3fb950" font-weight="700">{prompt}</tspan> '
                 f'<tspan class="cursor">█</tspan>'
                 f'</text>'
             )
@@ -165,7 +178,7 @@ def generate_terminal_svg(output_path="terminal.svg"):
 
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(svg)
-    print(f"Generated {output_path} successfully ({len(svg)} bytes) - 100% visible on GitHub")
+    print(f"Generated {output_path} successfully ({len(svg)} bytes) - 100% valid XML")
 
 if __name__ == "__main__":
     generate_terminal_svg()

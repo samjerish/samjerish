@@ -9,13 +9,12 @@
 
   <!-- Prominent Terminal SVG Hero Card -->
   <a href="https://github.com/samjerish">
-    <img src="https://raw.githubusercontent.com/samjerish/samjerish/main/terminal.svg" width="100%" alt="Terminal UI Profile" />
+    <img src="terminal.svg?v=5" width="100%" alt="Terminal UI Profile" />
   </a>
 
 </div>
 
 ---
-
 
 ### <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Chart%20Increasing.png" alt="Activity" width="28" height="28" /> <code>samjerish@quantum-core:~$ git status --contributions --metrics</code>
 
@@ -68,19 +67,19 @@ samjerish@quantum-core:~$ curl -s https://api.samjerish.dev/ping | jq '.status'
   <!-- Interactive Terminal Action Buttons -->
   <p align="center">
     <a href="mailto:samjerishd@gmail.com" target="_blank">
-      <img src="https://raw.githubusercontent.com/samjerish/samjerish/main/email.svg" alt="Email" height="42" />
+      <img src="email.svg?v=5" alt="Email" height="42" />
     </a>
     &nbsp;
     <a href="https://www.linkedin.com/in/samjerishd" target="_blank">
-      <img src="https://raw.githubusercontent.com/samjerish/samjerish/main/linkedin.svg" alt="LinkedIn" height="42" />
+      <img src="linkedin.svg?v=5" alt="LinkedIn" height="42" />
     </a>
     &nbsp;
     <a href="https://www.instagram.com/samjerishd" target="_blank">
-      <img src="https://raw.githubusercontent.com/samjerish/samjerish/main/instagram.svg" alt="Instagram" height="42" />
+      <img src="instagram.svg?v=5" alt="Instagram" height="42" />
     </a>
     &nbsp;
     <a href="https://samjerishd.vercel.app" target="_blank">
-      <img src="https://raw.githubusercontent.com/samjerish/samjerish/main/portfolio.svg" alt="Portfolio" height="42" />
+      <img src="portfolio.svg?v=5" alt="Portfolio" height="42" />
     </a>
   </p>
 
@@ -106,7 +105,7 @@ samjerish@quantum-core:~$ curl -s https://api.samjerish.dev/ping | jq '.status'
   <br />
 
   <!-- Animated Terminal Footer -->
-  <img src="https://raw.githubusercontent.com/samjerish/samjerish/main/footer.svg" width="85%" alt="Terminal Footer" />
+  <img src="footer.svg?v=5" width="85%" alt="Terminal Footer" />
 
   <p align="center">
     <code>[Process completed with exit code 0]</code><br />
