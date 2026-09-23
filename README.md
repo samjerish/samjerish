@@ -3,12 +3,7 @@
 <div align="center">
   <img src="header_banner.gif" alt="SAM JERISH D - AI & Machine Learning Student, Full-Stack Developer & Robotics Enthusiast" width="100%" />
 </div>
-
 <br />
-
-I'm an **AI & Machine Learning Student** and **Full-Stack Developer** passionate about Artificial Intelligence, Autonomous Robotics, Computer Vision, and turning innovative ideas into real-world solutions. 🚀
-
-<br /><br />
 
 <div align="center">
 
