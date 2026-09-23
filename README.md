@@ -1,22 +1,16 @@
+# Hi, I'm Sam Jerish 👋 💻
+
 <div align="center">
-
-  <!-- Animated Typing Terminal Headline -->
-  <a href="https://github.com/samjerish">
-    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=24&duration=3200&pause=1200&color=FFFFFF&center=true&vCenter=true&multiline=true&width=780&height=100&lines=%3E+SAM+JERISH+D;%3E+AI+%26+Machine+Learning+Student+%E2%80%A2+Full-Stack+Developer;%3E+Passionate+about+AI%2C+Robotics+%26+Computer+Vision;%3E+Turning+complex+ideas+into+real-world+solutions+%F0%9F%9A%80" alt="Terminal Typing Headline" />
-  </a>
-
-  <br />
-
-  <!-- Prominent Terminal SVG Hero Card -->
-  <a href="https://github.com/samjerish">
-    <img src="terminal.svg?v=5" width="100%" alt="Terminal UI Profile" />
-  </a>
-
+  <img src="header_banner.png" alt="SAM JERISH D - AI & Machine Learning Student, Full-Stack Developer & Robotics Enthusiast" width="100%" />
 </div>
+
+<br />
+
+I'm an **AI & Machine Learning Student** and **Full-Stack Developer** passionate about Artificial Intelligence, Autonomous Robotics, Computer Vision, and turning innovative ideas into real-world solutions. 🚀
 
 ---
 
-### <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Chart%20Increasing.png" alt="Activity" width="28" height="28" /> <code>samjerish@quantum-core:~$ git status --contributions --metrics</code>
+## 📈 Contribution Activity
 
 <div align="center">
 
@@ -45,7 +39,7 @@
   <br />
 
   <!-- Live Contribution Heatmap Graph (Monochrome / B&W) -->
-  <p align="left"><code>❯ Live Contribution Heatmap:</code></p>
+  <p align="left"><b>Live Contribution Heatmap:</b></p>
   <a href="https://github.com/samjerish">
     <img src="https://ghchart.rshah.org/ffffff/samjerish" width="100%" alt="Sam Jerish's GitHub Contribution Graph (B&W)" />
   </a>
@@ -54,36 +48,30 @@
 
 ---
 
-### <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Satellite%20Antenna.png" alt="Connect" width="28" height="28" /> <code>samjerish@quantum-core:~$ ./connect.sh --interactive</code>
-
-```bash
-# Initiate handshake: Reach out for collaborations, project inquiries, or AI/Robotics discussions
-samjerish@quantum-core:~$ curl -s https://api.samjerish.dev/ping | jq '.status'
-"AVAILABLE FOR INNOVATION & IMPACTFUL WORK"
-```
+## 🌐 Connect with me
 
 <div align="center">
 
-  <!-- Interactive Terminal Action Buttons -->
+  <!-- Action Buttons -->
   <p align="center">
     <a href="mailto:samjerishd@gmail.com" target="_blank">
-      <img src="email.svg?v=5" alt="Email" height="42" />
+      <img src="email.svg" alt="Email" height="42" />
     </a>
     &nbsp;
     <a href="https://www.linkedin.com/in/samjerishd" target="_blank">
-      <img src="linkedin.svg?v=5" alt="LinkedIn" height="42" />
+      <img src="linkedin.svg" alt="LinkedIn" height="42" />
     </a>
     &nbsp;
     <a href="https://www.instagram.com/samjerishd" target="_blank">
-      <img src="instagram.svg?v=5" alt="Instagram" height="42" />
+      <img src="instagram.svg" alt="Instagram" height="42" />
     </a>
     &nbsp;
     <a href="https://samjerishd.vercel.app" target="_blank">
-      <img src="portfolio.svg?v=5" alt="Portfolio" height="42" />
+      <img src="portfolio.svg" alt="Portfolio" height="42" />
     </a>
   </p>
 
-  <!-- Monochrome Fallback Badge Links -->
+  <!-- Fallback Badge Links -->
   <p align="center">
     <a href="mailto:samjerishd@gmail.com">
       <img src="https://img.shields.io/badge/Email-samjerishd%40gmail.com-000000?style=flat-square&logo=gmail&logoColor=white" alt="Email" />
@@ -104,12 +92,6 @@ samjerish@quantum-core:~$ curl -s https://api.samjerish.dev/ping | jq '.status'
 
   <br />
 
-  <!-- Animated Terminal Footer -->
-  <img src="footer.svg?v=5" width="85%" alt="Terminal Footer" />
-
-  <p align="center">
-    <code>[Process completed with exit code 0]</code><br />
-    <sub>Designed with ⚡ by <b>SAM JERISH D</b></sub>
-  </p>
+  <img src="footer.svg" width="85%" alt="Footer" />
 
 </div>
