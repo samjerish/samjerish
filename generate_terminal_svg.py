@@ -1,7 +1,6 @@
 import os
 
 def generate_terminal_svg(output_path="terminal.svg"):
-    # Lines of terminal output
     lines = [
         {"type": "cmd", "prompt": "samjerish@quantum-core:~$", "cmd": "whoami --bio"},
         {"type": "title", "text": "SAM JERISH D"},
@@ -11,15 +10,15 @@ def generate_terminal_svg(output_path="terminal.svg"):
 
         {"type": "cmd", "prompt": "samjerish@quantum-core:~$", "cmd": "neofetch --developer"},
         {"type": "spec", "key": "OS", "val": "macOS Sonoma (Darwin arm64)"},
-        {"type": "spec", "key": "Host", "val": "AI & Robotics Workstation"},
-        {"type": "spec", "key": "Focus", "val": "Artificial Intelligence, Deep Learning & Vision"},
-        {"type": "spec", "key": "Robotics", "val": "Autonomous Navigation, Simulation & Control"},
-        {"type": "spec", "key": "Stack", "val": "Python, C++, PyTorch, OpenCV, React, Node.js"},
-        {"type": "spec", "key": "Status", "val": "Building intelligent systems & scalable architectures 🚀"},
+        {"type": "spec", "key": "Host", "val": "AI, Vision & Robotics Workstation"},
+        {"type": "spec", "key": "Focus", "val": "Artificial Intelligence, Deep Learning & Computer Vision"},
+        {"type": "spec", "key": "Robotics", "val": "Intelligent Navigation, Obstacle Avoidance & Perception"},
+        {"type": "spec", "key": "Stack", "val": "Python, C++, PyTorch, OpenCV, React, Node.js, SQL"},
+        {"type": "spec", "key": "Status", "val": "Developing real-world autonomous systems & scalable apps 🚀"},
         {"type": "empty"},
 
         {"type": "cmd", "prompt": "samjerish@quantum-core:~$", "cmd": "git status --contributions"},
-        {"type": "git_branch", "text": "On branch main -> Ahead of 'origin/main' by commits across AI, Vision & Web"},
+        {"type": "git_branch", "text": "On branch main -> Ahead of 'origin/main' with continuous commits"},
         {"type": "git_success", "text": "✔ 100% committed to engineering impactful software"},
         {"type": "empty"},
 
@@ -29,107 +28,74 @@ def generate_terminal_svg(output_path="terminal.svg"):
     svg_width = 880
     svg_height = 540
     start_x = 28
-    start_y = 72
+    start_y = 74
     line_height = 24
 
-    css_keyframes = """
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-    @keyframes lineFadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .cursor {
-      fill: #58a6ff;
-      animation: blink 0.9s infinite;
-    }
-    .line {
-      opacity: 0;
-      animation: lineFadeIn 0.3s ease forwards;
-    }
-    """
-
-    css_delays = ""
     svg_content = []
-
     current_y = start_y
-    delay = 0.2
-    step = 0.16
 
-    for i, item in enumerate(lines):
+    for item in lines:
         item_type = item["type"]
-        line_class = f"line line-{i}"
-        css_delays += f"    .line-{i} {{ animation-delay: {delay:.2f}s; }}\n"
 
         if item_type == "empty":
             current_y += 14
-            delay += 0.08
             continue
 
         if item_type == "cmd":
             svg_content.append(
-                f'<text class="font-mono {line_class}" x="{start_x}" y="{current_y}">'
+                f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
                 f'<tspan fill="#3fb950" font-weight="700">{item["prompt"]}</tspan> '
                 f'<tspan fill="#58a6ff" font-weight="600">{item["cmd"]}</tspan>'
                 f'</text>'
             )
-            delay += 0.35
 
         elif item_type == "title":
             svg_content.append(
-                f'<text class="font-mono {line_class}" x="{start_x}" y="{current_y}">'
+                f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
                 f'<tspan fill="#d2a8ff" font-size="18px" font-weight="800">⚡ {item["text"]}</tspan>'
                 f'</text>'
             )
-            delay += step
 
         elif item_type == "badge":
             svg_content.append(
-                f'<text class="font-mono {line_class}" x="{start_x}" y="{current_y}">'
+                f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
                 f'<tspan fill="#79c0ff" font-weight="600">❯ {item["text"]}</tspan>'
                 f'</text>'
             )
-            delay += step
 
         elif item_type == "quote":
             svg_content.append(
-                f'<text class="font-mono {line_class}" x="{start_x}" y="{current_y}">'
+                f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
                 f'<tspan fill="#8b949e" font-style="italic">  "{item["text"]}"</tspan>'
                 f'</text>'
             )
-            delay += step
 
         elif item_type == "spec":
             svg_content.append(
-                f'<text class="font-mono {line_class}" x="{start_x}" y="{current_y}">'
+                f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
                 f'<tspan fill="#ff7b72" font-weight="700">  [{item["key"]}]</tspan>'
                 f'<tspan fill="#c9d1d9"> : </tspan>'
                 f'<tspan fill="#f0883e">{item["val"]}</tspan>'
                 f'</text>'
             )
-            delay += step
 
         elif item_type == "git_branch":
             svg_content.append(
-                f'<text class="font-mono {line_class}" x="{start_x}" y="{current_y}">'
+                f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
                 f'<tspan fill="#e3b341">  ⎇ {item["text"]}</tspan>'
                 f'</text>'
             )
-            delay += step
 
         elif item_type == "git_success":
             svg_content.append(
-                f'<text class="font-mono {line_class}" x="{start_x}" y="{current_y}">'
+                f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
                 f'<tspan fill="#3fb950" font-weight="600">  {item["text"]}</tspan>'
                 f'</text>'
             )
-            delay += step
 
         elif item_type == "prompt_cursor":
             svg_content.append(
-                f'<text class="font-mono {line_class}" x="{start_x}" y="{current_y}">'
+                f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
                 f'<tspan fill="#3fb950" font-weight="700">{item["prompt"]}</tspan> '
                 f'<tspan class="cursor">█</tspan>'
                 f'</text>'
@@ -150,10 +116,6 @@ def generate_terminal_svg(output_path="terminal.svg"):
       <stop offset="50%" stop-color="#58a6ff" stop-opacity="0.4" />
       <stop offset="100%" stop-color="#30363d" />
     </linearGradient>
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="3" result="blur" />
-      <feComposite in="SourceGraphic" in2="blur" operator="over" />
-    </filter>
   </defs>
 
   <style>
@@ -162,8 +124,17 @@ def generate_terminal_svg(output_path="terminal.svg"):
       font-size: 14.5px;
       letter-spacing: -0.2px;
     }}
-    {css_keyframes}
-    {css_delays}
+    .line {{
+      opacity: 1;
+    }}
+    .cursor {{
+      fill: #58a6ff;
+      animation: blink 0.9s infinite;
+    }}
+    @keyframes blink {{
+      0%, 100% {{ opacity: 1; }}
+      50% {{ opacity: 0; }}
+    }}
   </style>
 
   <!-- Terminal Window Shadow & Base Card -->
@@ -194,7 +165,7 @@ def generate_terminal_svg(output_path="terminal.svg"):
 
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(svg)
-    print(f"Generated {output_path} successfully ({len(svg)} bytes)")
+    print(f"Generated {output_path} successfully ({len(svg)} bytes) - 100% visible on GitHub")
 
 if __name__ == "__main__":
     generate_terminal_svg()
