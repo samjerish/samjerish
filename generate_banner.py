@@ -8,27 +8,26 @@ def generate_banner_png(output_path="header_banner.png", avatar_path="github.png
     banner = Image.new('RGBA', (w, h), (252, 244, 250, 255))
     draw = ImageDraw.Draw(banner)
 
-    # Fonts
-    font_name = ImageFont.truetype('/System/Library/Fonts/Supplemental/Arial Bold.ttf', 98)
-    font_sub = ImageFont.truetype('/System/Library/Fonts/Supplemental/Arial.ttf', 48)
-    font_watermark = ImageFont.truetype('/System/Library/Fonts/Supplemental/Arial Bold.ttf', 380)
+    # Big modern bold font
+    font_big = ImageFont.truetype('/System/Library/Fonts/Supplemental/Arial Bold.ttf', 86)
 
-    # Faint decorative watermark 'SAM' in background
-    draw.text((160, 116), 'SAM', fill=(240, 222, 238, 255), font=font_watermark)
+    lines = [
+        "Creativity and technology",
+        "to craft user-centric",
+        "solutions"
+    ]
 
-    # Text placement
-    text_x = 120
-    name_y = 185
-    draw.text((text_x, name_y), 'SAM JERISH D', fill=(30, 25, 48, 255), font=font_name)
+    line_height = 112
+    total_text_h = (len(lines) - 1) * line_height + 86
+    start_y = (h - total_text_h) // 2
+    text_x = 130
 
-    sub1_y = name_y + 145
-    draw.text((text_x, sub1_y), 'AI & machine learning student, full-stack developer &', fill=(108, 98, 126, 255), font=font_sub)
+    for i, line in enumerate(lines):
+        y = start_y + i * line_height
+        draw.text((text_x, y), line, fill=(28, 24, 44, 255), font=font_big)
 
-    sub2_y = sub1_y + 70
-    draw.text((text_x, sub2_y), 'robotics & computer vision enthusiast', fill=(108, 98, 126, 255), font=font_sub)
-
-    # Right side: PNG portrait card (2x)
-    av_size = 480
+    # Right side: PNG portrait without any border lines
+    av_size = 520
     if os.path.exists(avatar_path):
         avatar = Image.open(avatar_path).convert('RGBA')
         avatar = avatar.resize((av_size, av_size), Image.LANCZOS)
@@ -38,17 +37,10 @@ def generate_banner_png(output_path="header_banner.png", avatar_path="github.png
         mask_draw = ImageDraw.Draw(mask)
         mask_draw.rounded_rectangle((0, 0, av_size, av_size), radius=radius, fill=255)
 
-        pad = 12
-        card_w = av_size + 2 * pad
-        card_h = av_size + 2 * pad
-        av_x = w - card_w - 90
-        av_y = (h - card_h) // 2
+        av_x = w - av_size - 100
+        av_y = (h - av_size) // 2
 
-        # Subtle outer shadow and clean white card frame
-        draw.rounded_rectangle((av_x - 6, av_y - 2, av_x + card_w + 6, av_y + card_h + 10), radius=radius + pad, fill=(232, 218, 230, 255))
-        draw.rounded_rectangle((av_x, av_y, av_x + card_w, av_y + card_h), radius=radius + pad, fill=(255, 255, 255, 255))
-
-        banner.paste(avatar, (av_x + pad, av_y + pad), mask)
+        banner.paste(avatar, (av_x, av_y), mask)
 
     banner.save(output_path, 'PNG', optimize=True)
     print(f"Generated {output_path} successfully ({w}x{h})")
@@ -59,26 +51,25 @@ def generate_banner_gif(output_path="header_banner.gif", avatar_path="github.png
     base = Image.new('RGBA', (w, h), (252, 244, 250, 255))
     draw_base = ImageDraw.Draw(base)
 
-    font_name = ImageFont.truetype('/System/Library/Fonts/Supplemental/Arial Bold.ttf', 48)
-    font_sub = ImageFont.truetype('/System/Library/Fonts/Supplemental/Arial.ttf', 24)
-    font_watermark = ImageFont.truetype('/System/Library/Fonts/Supplemental/Arial Bold.ttf', 190)
+    font_big = ImageFont.truetype('/System/Library/Fonts/Supplemental/Arial Bold.ttf', 43)
 
-    # Faint watermark 'SAM' in background
-    draw_base.text((80, 58), 'SAM', fill=(240, 222, 238, 255), font=font_watermark)
+    lines = [
+        "Creativity and technology",
+        "to craft user-centric",
+        "solutions"
+    ]
 
-    # Text placement
-    text_x = 60
-    name_y = 92
-    draw_base.text((text_x, name_y), 'SAM JERISH D', fill=(30, 25, 48, 255), font=font_name)
+    line_height = 56
+    total_text_h = (len(lines) - 1) * line_height + 43
+    start_y = (h - total_text_h) // 2
+    text_x = 65
 
-    sub1_y = name_y + 72
-    draw_base.text((text_x, sub1_y), 'AI & machine learning student, full-stack developer &', fill=(108, 98, 126, 255), font=font_sub)
+    for i, line in enumerate(lines):
+        y = start_y + i * line_height
+        draw_base.text((text_x, y), line, fill=(28, 24, 44, 255), font=font_big)
 
-    sub2_y = sub1_y + 35
-    draw_base.text((text_x, sub2_y), 'robotics & computer vision enthusiast', fill=(108, 98, 126, 255), font=font_sub)
-
-    # Right side: PNG portrait card
-    av_size = 240
+    # Right side: PNG portrait without any border lines
+    av_size = 260
     if os.path.exists(avatar_path):
         avatar = Image.open(avatar_path).convert('RGBA')
         avatar = avatar.resize((av_size, av_size), Image.LANCZOS)
@@ -88,16 +79,10 @@ def generate_banner_gif(output_path="header_banner.gif", avatar_path="github.png
         mask_draw = ImageDraw.Draw(mask)
         mask_draw.rounded_rectangle((0, 0, av_size, av_size), radius=radius, fill=255)
 
-        pad = 6
-        card_w = av_size + 2 * pad
-        card_h = av_size + 2 * pad
-        av_x = w - card_w - 45
-        av_y = (h - card_h) // 2
+        av_x = w - av_size - 50
+        av_y = (h - av_size) // 2
 
-        # Outer soft shadow & white frame
-        draw_base.rounded_rectangle((av_x - 3, av_y - 1, av_x + card_w + 3, av_y + card_h + 5), radius=radius + pad, fill=(232, 218, 230, 255))
-        draw_base.rounded_rectangle((av_x, av_y, av_x + card_w, av_y + card_h), radius=radius + pad, fill=(255, 255, 255, 255))
-        base.paste(avatar, (av_x + pad, av_y + pad), mask)
+        base.paste(avatar, (av_x, av_y), mask)
 
     # Swipe animation:
     # 52 frames swipe (~3.1s) + 24 frames calm pause (~1.4s) = 76 frames total at 60ms (~4.5s loop)
