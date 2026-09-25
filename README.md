@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="header_banner.png?v=4" alt="Creativity and technology to craft user-centric solutions - SAM JERISH D" width="100%" />
+  <img src="header_banner.png?v=5" alt="creativity and technology to craft user-centric solutions - SAM JERISH D" width="100%" />
 </div>
 
 <br />
@@ -27,13 +27,8 @@
 
   <br />
 
-  <!-- Animated Interactive Terminal -->
-  <img src="terminal.svg?v=2" width="94%" alt="Interactive Terminal - SAM JERISH D" />
-
-  <br /><br />
-
-  <!-- Animated Terminal Footer -->
-  <img src="footer.svg?v=2" width="85%" alt="Footer" />
+  <!-- Footer -->
+  <img src="footer.svg?v=3" width="85%" alt="Footer" />
 
 </div>
 
