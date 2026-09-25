@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="header_banner.gif?v=7" alt="creativity and technology to craft user-centric solutions - SAM JERISH D" width="100%" />
+  <img src="header_banner.gif?v=8" alt="creativity and technology to craft user-centric solutions - SAM JERISH D" width="100%" />
 </div>
 
 <br />
@@ -28,7 +28,7 @@
   <br />
 
   <!-- Footer -->
-  <img src="footer.svg?v=3" width="85%" alt="Footer" />
+  <img src="footer.svg?v=4" width="85%" alt="Footer" />
 
 </div>
 

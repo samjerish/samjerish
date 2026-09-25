@@ -175,6 +175,156 @@ def generate_banner_gif(output_path="header_banner.gif", photo_path="photo_nobg_
     print(f"Generated {output_path} successfully ({w}x{h}, {len(quantized_frames)} frames)")
 
 
+def generate_banner_svg(output_path="header_banner.svg", photo_path="photo_nobg_dark.png"):
+    import base64
+    photo_b64 = ""
+    if os.path.exists(photo_path):
+        with open(photo_path, "rb") as f:
+            photo_b64 = base64.b64encode(f.read()).decode("utf-8")
+
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 340" width="1000" height="340">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0c10" />
+      <stop offset="50%" stop-color="#0e1217" />
+      <stop offset="100%" stop-color="#090b0e" />
+    </linearGradient>
+
+    <radialGradient id="ambientGlow" cx="75%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#283548" stop-opacity="0.4" />
+      <stop offset="60%" stop-color="#161b22" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#0a0c10" stop-opacity="0" />
+    </radialGradient>
+
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#30363d" stop-opacity="0.9" />
+      <stop offset="50%" stop-color="#58a6ff" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#21262d" stop-opacity="0.8" />
+    </linearGradient>
+
+    <linearGradient id="beamGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
+      <stop offset="50%" stop-color="#58a6ff" stop-opacity="0.22" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Tech Dot Grid Pattern -->
+    <pattern id="dotGrid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="12" cy="12" r="1.2" fill="#30363d" opacity="0.45" />
+    </pattern>
+  </defs>
+
+  <style>
+    @keyframes smoothSlideInLeft {{
+      0% {{
+        opacity: 0;
+        transform: translateX(-40px);
+      }}
+      100% {{
+        opacity: 1;
+        transform: translateX(0);
+      }}
+    }}
+
+    @keyframes smoothSlideInRight {{
+      0% {{
+        opacity: 0;
+        transform: translateX(45px);
+      }}
+      100% {{
+        opacity: 1;
+        transform: translateX(0);
+      }}
+    }}
+
+    @keyframes lightSweep {{
+      0% {{
+        transform: translateX(-450px) skewX(-20deg);
+        opacity: 0;
+      }}
+      20% {{
+        opacity: 1;
+      }}
+      60% {{
+        transform: translateX(1150px) skewX(-20deg);
+        opacity: 0.8;
+      }}
+      80%, 100% {{
+        transform: translateX(1150px) skewX(-20deg);
+        opacity: 0;
+      }}
+    }}
+
+    @keyframes cursorBlink {{
+      0%, 100% {{ opacity: 1; }}
+      50% {{ opacity: 0; }}
+    }}
+
+    .font-code {{
+      font-family: 'Menlo', 'Fira Code', 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+      font-size: 34px;
+      font-weight: 700;
+      fill: #f0f6fc;
+      letter-spacing: -0.3px;
+    }}
+
+    .line-1 {{
+      animation: smoothSlideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+    }}
+    .line-2 {{
+      animation: smoothSlideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+    }}
+    .line-3 {{
+      animation: smoothSlideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+    }}
+
+    .photo-reveal {{
+      animation: smoothSlideInRight 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+    }}
+
+    .sweep-beam {{
+      animation: lightSweep 4.5s ease-in-out infinite 0.9s;
+    }}
+
+    .blink-cursor {{
+      fill: #58a6ff;
+      animation: cursorBlink 0.9s infinite;
+    }}
+  </style>
+
+  <!-- Base Card Background -->
+  <rect x="1" y="1" width="998" height="338" rx="16" fill="url(#cardBg)" stroke="url(#borderGrad)" stroke-width="1.8" />
+
+  <!-- Ambient Lighting Layer -->
+  <rect x="1" y="1" width="998" height="338" rx="16" fill="url(#ambientGlow)" />
+
+  <!-- Background Tech Dot Grid on Left Side -->
+  <rect x="2" y="2" width="620" height="336" fill="url(#dotGrid)" />
+
+  <!-- Coding Tagline -->
+  <g transform="translate(60, 110)">
+    <text class="font-code line-1" x="0" y="0">creativity and technology</text>
+    <text class="font-code line-2" x="0" y="54">to craft user-centric</text>
+    <text class="font-code line-3" x="0" y="108">solutions<tspan class="blink-cursor">_</tspan></text>
+  </g>
+
+  <!-- Large Photo with Smooth Slide-in from Right -->
+  <g class="photo-reveal">
+    <image href="data:image/png;base64,{photo_b64}" x="625" y="10" width="360" height="330" preserveAspectRatio="xMidYMid meet" />
+  </g>
+
+  <!-- Silky Light Sweep Beam Overlay -->
+  <rect class="sweep-beam" x="0" y="0" width="280" height="340" fill="url(#beamGrad)" pointer-events="none" />
+
+</svg>"""
+
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write(svg)
+    print(f"Generated {output_path} successfully ({len(svg)} bytes)")
+
+
 if __name__ == "__main__":
     generate_banner_png()
     generate_banner_gif()
+    generate_banner_svg()

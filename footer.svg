@@ -1,5 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 48" width="750" height="48">
   <style>
+    @keyframes footerReveal {
+      0% {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .footer-content {
+      animation: footerReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+    }
     .terminal-footer {
       font-family: 'Fira Code', 'JetBrains Mono', Consolas, monospace;
       font-size: 15px;
@@ -27,9 +40,11 @@
     </linearGradient>
   </defs>
   
-  <line x1="40" y1="2" x2="710" y2="2" stroke="url(#footerLine)" stroke-width="1.5" />
-  
-  <text x="375" y="30" text-anchor="middle" class="terminal-footer">
-    <tspan fill="#3fb950">❯ </tspan>Let&apos;s build something <tspan class="accent">revolutionary</tspan> together! <tspan class="cursor">█</tspan>
-  </text>
+  <g class="footer-content">
+    <line x1="40" y1="2" x2="710" y2="2" stroke="url(#footerLine)" stroke-width="1.5" />
+    
+    <text x="375" y="30" text-anchor="middle" class="terminal-footer">
+      <tspan fill="#3fb950">❯ </tspan>Let&apos;s build something <tspan class="accent">revolutionary</tspan> together! <tspan class="cursor">█</tspan>
+    </text>
+  </g>
 </svg>
