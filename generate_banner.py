@@ -19,7 +19,7 @@ def get_coding_font(size):
                 continue
     return ImageFont.load_default()
 
-def create_rich_dark_base(w, h, photo_path="photo_nobg_dark.png", scale=1.0):
+def create_rich_dark_base(w, h, photo_path="github banner.png", scale=1.0):
     base = Image.new('RGBA', (w, h), (10, 12, 16, 255))
 
     # 1. Subtle dark grey & slate ambient aura
@@ -88,14 +88,14 @@ def create_rich_dark_base(w, h, photo_path="photo_nobg_dark.png", scale=1.0):
     return base
 
 
-def generate_banner_png(output_path="header_banner.png", photo_path="photo_nobg_dark.png"):
+def generate_banner_png(output_path="header_banner.png", photo_path="github banner.png"):
     w, h = 2000, 680
     banner = create_rich_dark_base(w, h, photo_path, scale=2.0)
     banner.save(output_path, 'PNG', optimize=True)
     print(f"Generated {output_path} successfully ({w}x{h})")
 
 
-def generate_banner_gif(output_path="header_banner.gif", photo_path="photo_nobg_dark.png"):
+def generate_banner_gif(output_path="header_banner.gif", photo_path="github banner.png"):
     w, h = 1000, 340
     base = create_rich_dark_base(w, h, photo_path, scale=1.0)
     bg_blank = Image.new('RGBA', (w, h), (10, 12, 16, 255))
@@ -175,7 +175,7 @@ def generate_banner_gif(output_path="header_banner.gif", photo_path="photo_nobg_
     print(f"Generated {output_path} successfully ({w}x{h}, {len(quantized_frames)} frames)")
 
 
-def generate_banner_svg(output_path="header_banner.svg", photo_path="photo_nobg_dark.png"):
+def generate_banner_svg(output_path="header_banner.svg", photo_path="github banner.png"):
     import base64
     photo_b64 = ""
     if os.path.exists(photo_path):
