@@ -2,53 +2,62 @@
   <defs>
     <linearGradient id="btnBg_Portfolio" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#161b22" />
-      <stop offset="100%" stop-color="#0d1117" />
+      <stop offset="50%" stop-color="#0e1217" />
+      <stop offset="100%" stop-color="#0a0c10" />
     </linearGradient>
     <linearGradient id="border_Portfolio" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#3fb950" stop-opacity="0.85" />
-      <stop offset="100%" stop-color="#30363d" />
+      <stop offset="0%" stop-color="#3fb950" stop-opacity="0.9" />
+      <stop offset="60%" stop-color="#30363d" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#3fb950" stop-opacity="0.3" />
     </linearGradient>
   </defs>
 
   <style>
-    @keyframes slideLeft {
+    @keyframes slideInLeft {
       0% {
         opacity: 0;
-        transform: translateX(-50px);
+        transform: translateX(-50px) scale(0.95);
+      }
+      60% {
+        opacity: 0.9;
       }
       100% {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateX(0) scale(1);
       }
     }
-    @keyframes slideRight {
+    @keyframes slideInRight {
       0% {
         opacity: 0;
-        transform: translateX(50px);
+        transform: translateX(50px) scale(0.95);
+      }
+      60% {
+        opacity: 0.9;
       }
       100% {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateX(0) scale(1);
       }
     }
-    .btn-slide {
-      animation: slideRight 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+    .btn-card {
+      animation: slideInRight 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+      transform-origin: center center;
     }
   </style>
 
-  <g class="btn-slide">
-    <!-- Button Card -->
-    <rect x="1.5" y="1.5" width="167" height="41" rx="8" fill="url(#btnBg_Portfolio)" stroke="url(#border_Portfolio)" stroke-width="1.6" />
+  <g class="btn-card">
+    <!-- Button Card with Rounded Corners & Subtle Border -->
+    <rect x="1.5" y="1.5" width="167" height="41" rx="9" fill="url(#btnBg_Portfolio)" stroke="url(#border_Portfolio)" stroke-width="1.5" />
 
-    <!-- Prompt prefix -->
-    <text x="12" y="27" font-family="'Fira Code', 'JetBrains Mono', monospace" font-size="13px" fill="#3fb950" font-weight="700">❯</text>
+    <!-- Terminal Command Chevron -->
+    <text x="12" y="27" font-family="'Menlo', 'Fira Code', 'JetBrains Mono', monospace" font-size="13px" fill="#3fb950" font-weight="700">❯</text>
 
     <!-- Icon -->
     <g transform="translate(26, 11) scale(0.92)" fill="#3fb950">
       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
     </g>
 
-    <!-- Label -->
-    <text x="54" y="27" font-family="'Fira Code', -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace" font-size="13px" font-weight="700" fill="#f0f6fc" letter-spacing="0.4px">Portfolio</text>
+    <!-- Button Text -->
+    <text x="54" y="27" font-family="'Menlo', 'Fira Code', -apple-system, monospace" font-size="13px" font-weight="700" fill="#f0f6fc" letter-spacing="0.4px">Portfolio</text>
   </g>
 </svg>

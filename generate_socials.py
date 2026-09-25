@@ -1,61 +1,70 @@
 import os
 
 def create_terminal_button(name, filename, color_accent, icon_svg_path, direction="left", delay=0.1, text_x="50"):
-    anim_name = "slideLeft" if direction == "left" else "slideRight"
-    initial_x = -50 if direction == "left" else 50
+    anim_name = "slideInLeft" if direction == "left" else "slideInRight"
+    initial_x = "-45px" if direction == "left" else "45px"
 
     svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 44" width="170" height="44">
   <defs>
     <linearGradient id="btnBg_{name}" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#161b22" />
-      <stop offset="100%" stop-color="#0d1117" />
+      <stop offset="50%" stop-color="#0e1217" />
+      <stop offset="100%" stop-color="#0a0c10" />
     </linearGradient>
     <linearGradient id="border_{name}" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="{color_accent}" stop-opacity="0.85" />
-      <stop offset="100%" stop-color="#30363d" />
+      <stop offset="0%" stop-color="{color_accent}" stop-opacity="0.9" />
+      <stop offset="60%" stop-color="#30363d" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="{color_accent}" stop-opacity="0.3" />
     </linearGradient>
   </defs>
 
   <style>
-    @keyframes slideLeft {{
+    @keyframes slideInLeft {{
       0% {{
         opacity: 0;
-        transform: translateX(-50px);
+        transform: translateX(-50px) scale(0.95);
+      }}
+      60% {{
+        opacity: 0.9;
       }}
       100% {{
         opacity: 1;
-        transform: translateX(0);
+        transform: translateX(0) scale(1);
       }}
     }}
-    @keyframes slideRight {{
+    @keyframes slideInRight {{
       0% {{
         opacity: 0;
-        transform: translateX(50px);
+        transform: translateX(50px) scale(0.95);
+      }}
+      60% {{
+        opacity: 0.9;
       }}
       100% {{
         opacity: 1;
-        transform: translateX(0);
+        transform: translateX(0) scale(1);
       }}
     }}
-    .btn-slide {{
-      animation: {anim_name} 0.65s cubic-bezier(0.16, 1, 0.3, 1) {delay}s both;
+    .btn-card {{
+      animation: {anim_name} 0.85s cubic-bezier(0.16, 1, 0.3, 1) {delay}s both;
+      transform-origin: center center;
     }}
   </style>
 
-  <g class="btn-slide">
-    <!-- Button Card -->
-    <rect x="1.5" y="1.5" width="167" height="41" rx="8" fill="url(#btnBg_{name})" stroke="url(#border_{name})" stroke-width="1.6" />
+  <g class="btn-card">
+    <!-- Button Card with Rounded Corners & Subtle Border -->
+    <rect x="1.5" y="1.5" width="167" height="41" rx="9" fill="url(#btnBg_{name})" stroke="url(#border_{name})" stroke-width="1.5" />
 
-    <!-- Prompt prefix -->
-    <text x="12" y="27" font-family="'Fira Code', 'JetBrains Mono', monospace" font-size="13px" fill="{color_accent}" font-weight="700">❯</text>
+    <!-- Terminal Command Chevron -->
+    <text x="12" y="27" font-family="'Menlo', 'Fira Code', 'JetBrains Mono', monospace" font-size="13px" fill="{color_accent}" font-weight="700">❯</text>
 
     <!-- Icon -->
     <g transform="translate(26, 11) scale(0.92)" fill="{color_accent}">
       {icon_svg_path}
     </g>
 
-    <!-- Label -->
-    <text x="{text_x}" y="27" font-family="'Fira Code', -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace" font-size="13px" font-weight="700" fill="#f0f6fc" letter-spacing="0.4px">{name}</text>
+    <!-- Button Text -->
+    <text x="{text_x}" y="27" font-family="'Menlo', 'Fira Code', -apple-system, monospace" font-size="13px" font-weight="700" fill="#f0f6fc" letter-spacing="0.4px">{name}</text>
   </g>
 </svg>"""
 
