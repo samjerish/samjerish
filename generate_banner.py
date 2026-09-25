@@ -191,35 +191,75 @@ def generate_banner_svg(output_path="header_banner.svg", photo_path="github bann
       <stop offset="100%" stop-color="#090b0e" />
     </linearGradient>
 
-    <radialGradient id="ambientGlow" cx="75%" cy="50%" r="60%">
-      <stop offset="0%" stop-color="#283548" stop-opacity="0.4" />
-      <stop offset="60%" stop-color="#161b22" stop-opacity="0.1" />
+    <radialGradient id="ambientGlow" cx="75%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="#283548" stop-opacity="0.5" />
+      <stop offset="55%" stop-color="#161b22" stop-opacity="0.15" />
       <stop offset="100%" stop-color="#0a0c10" stop-opacity="0" />
     </radialGradient>
 
     <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#30363d" stop-opacity="0.9" />
-      <stop offset="50%" stop-color="#58a6ff" stop-opacity="0.3" />
-      <stop offset="100%" stop-color="#21262d" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#58a6ff" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#21262d" stop-opacity="0.85" />
     </linearGradient>
 
     <linearGradient id="beamGrad" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
-      <stop offset="50%" stop-color="#58a6ff" stop-opacity="0.22" />
+      <stop offset="50%" stop-color="#58a6ff" stop-opacity="0.25" />
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+
+    <linearGradient id="swipeBeamGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#58a6ff" stop-opacity="0" />
+      <stop offset="40%" stop-color="#58a6ff" stop-opacity="0.2" />
+      <stop offset="80%" stop-color="#79c0ff" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.95" />
     </linearGradient>
 
     <!-- Tech Dot Grid Pattern -->
     <pattern id="dotGrid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
       <circle cx="12" cy="12" r="1.2" fill="#30363d" opacity="0.45" />
     </pattern>
+
+    <!-- Clip path for ultra-smooth opening swipe -->
+    <clipPath id="wipeClip">
+      <rect class="wipe-rect" x="0" y="0" width="1000" height="340" rx="16" />
+    </clipPath>
   </defs>
 
   <style>
+    @keyframes openingWipe {{
+      0% {{
+        width: 0px;
+        transform: scaleX(0);
+      }}
+      100% {{
+        width: 1000px;
+        transform: scaleX(1);
+      }}
+    }}
+
+    @keyframes openingLeadingBeam {{
+      0% {{
+        transform: translateX(-60px);
+        opacity: 0;
+      }}
+      12% {{
+        opacity: 0.95;
+      }}
+      85% {{
+        opacity: 0.85;
+      }}
+      100% {{
+        transform: translateX(1020px);
+        opacity: 0;
+      }}
+    }}
+
     @keyframes smoothSlideInLeft {{
       0% {{
         opacity: 0;
-        transform: translateX(-40px);
+        transform: translateX(-45px);
       }}
       100% {{
         opacity: 1;
@@ -230,7 +270,7 @@ def generate_banner_svg(output_path="header_banner.svg", photo_path="github bann
     @keyframes smoothSlideInRight {{
       0% {{
         opacity: 0;
-        transform: translateX(45px);
+        transform: translateX(50px);
       }}
       100% {{
         opacity: 1;
@@ -238,19 +278,19 @@ def generate_banner_svg(output_path="header_banner.svg", photo_path="github bann
       }}
     }}
 
-    @keyframes lightSweep {{
-      0% {{
+    @keyframes lightSweepLoop {{
+      0%, 25% {{
         transform: translateX(-450px) skewX(-20deg);
         opacity: 0;
       }}
-      20% {{
-        opacity: 1;
+      35% {{
+        opacity: 0.9;
       }}
-      60% {{
+      65% {{
         transform: translateX(1150px) skewX(-20deg);
-        opacity: 0.8;
+        opacity: 0.7;
       }}
-      80%, 100% {{
+      75%, 100% {{
         transform: translateX(1150px) skewX(-20deg);
         opacity: 0;
       }}
@@ -259,6 +299,15 @@ def generate_banner_svg(output_path="header_banner.svg", photo_path="github bann
     @keyframes cursorBlink {{
       0%, 100% {{ opacity: 1; }}
       50% {{ opacity: 0; }}
+    }}
+
+    .wipe-rect {{
+      transform-origin: left center;
+      animation: openingWipe 1.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }}
+
+    .opening-beam {{
+      animation: openingLeadingBeam 1.25s cubic-bezier(0.16, 1, 0.3, 1) both;
     }}
 
     .font-code {{
@@ -270,21 +319,21 @@ def generate_banner_svg(output_path="header_banner.svg", photo_path="github bann
     }}
 
     .line-1 {{
-      animation: smoothSlideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+      animation: smoothSlideInLeft 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
     }}
     .line-2 {{
-      animation: smoothSlideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+      animation: smoothSlideInLeft 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
     }}
     .line-3 {{
-      animation: smoothSlideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+      animation: smoothSlideInLeft 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.44s both;
     }}
 
     .photo-reveal {{
-      animation: smoothSlideInRight 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+      animation: smoothSlideInRight 1.05s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
     }}
 
     .sweep-beam {{
-      animation: lightSweep 4.5s ease-in-out infinite 0.9s;
+      animation: lightSweepLoop 5s ease-in-out infinite 1.4s;
     }}
 
     .blink-cursor {{
@@ -293,29 +342,38 @@ def generate_banner_svg(output_path="header_banner.svg", photo_path="github bann
     }}
   </style>
 
-  <!-- Base Card Background -->
-  <rect x="1" y="1" width="998" height="338" rx="16" fill="url(#cardBg)" stroke="url(#borderGrad)" stroke-width="1.8" />
+  <!-- Container with Opening Swipe Transition -->
+  <g clip-path="url(#wipeClip)">
+    <!-- Base Card Background -->
+    <rect x="1" y="1" width="998" height="338" rx="16" fill="url(#cardBg)" stroke="url(#borderGrad)" stroke-width="1.8" />
 
-  <!-- Ambient Lighting Layer -->
-  <rect x="1" y="1" width="998" height="338" rx="16" fill="url(#ambientGlow)" />
+    <!-- Ambient Lighting Layer -->
+    <rect x="1" y="1" width="998" height="338" rx="16" fill="url(#ambientGlow)" />
 
-  <!-- Background Tech Dot Grid on Left Side -->
-  <rect x="2" y="2" width="620" height="336" fill="url(#dotGrid)" />
+    <!-- Background Tech Dot Grid on Left Side -->
+    <rect x="2" y="2" width="620" height="336" fill="url(#dotGrid)" />
 
-  <!-- Coding Tagline -->
-  <g transform="translate(60, 110)">
-    <text class="font-code line-1" x="0" y="0">creativity and technology</text>
-    <text class="font-code line-2" x="0" y="54">to craft user-centric</text>
-    <text class="font-code line-3" x="0" y="108">solutions<tspan class="blink-cursor">_</tspan></text>
+    <!-- Coding Tagline -->
+    <g transform="translate(60, 110)">
+      <text class="font-code line-1" x="0" y="0">creativity and technology</text>
+      <text class="font-code line-2" x="0" y="54">to craft user-centric</text>
+      <text class="font-code line-3" x="0" y="108">solutions<tspan class="blink-cursor">_</tspan></text>
+    </g>
+
+    <!-- Large Photo with Smooth Slide-in from Right -->
+    <g class="photo-reveal">
+      <image href="data:image/png;base64,{photo_b64}" x="625" y="10" width="360" height="330" preserveAspectRatio="xMidYMid meet" />
+    </g>
+
+    <!-- Looping Silky Light Sweep Beam Overlay -->
+    <rect class="sweep-beam" x="0" y="0" width="280" height="340" fill="url(#beamGrad)" pointer-events="none" />
   </g>
 
-  <!-- Large Photo with Smooth Slide-in from Right -->
-  <g class="photo-reveal">
-    <image href="data:image/png;base64,{photo_b64}" x="625" y="10" width="360" height="330" preserveAspectRatio="xMidYMid meet" />
-  </g>
+  <!-- Opening Leading Glow Beam during initial swipe -->
+  <rect class="opening-beam" x="-60" y="0" width="60" height="340" fill="url(#swipeBeamGrad)" pointer-events="none" />
 
-  <!-- Silky Light Sweep Beam Overlay -->
-  <rect class="sweep-beam" x="0" y="0" width="280" height="340" fill="url(#beamGrad)" pointer-events="none" />
+  <!-- Outer Static Border to keep card boundary crisp -->
+  <rect x="1" y="1" width="998" height="338" rx="16" fill="none" stroke="url(#borderGrad)" stroke-width="1.8" />
 
 </svg>"""
 
