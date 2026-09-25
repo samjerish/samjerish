@@ -12,40 +12,7 @@
     </linearGradient>
   </defs>
 
-  <style>
-    @keyframes slideInLeft {
-      0% {
-        opacity: 0;
-        transform: translateX(-50px) scale(0.95);
-      }
-      60% {
-        opacity: 0.9;
-      }
-      100% {
-        opacity: 1;
-        transform: translateX(0) scale(1);
-      }
-    }
-    @keyframes slideInRight {
-      0% {
-        opacity: 0;
-        transform: translateX(50px) scale(0.95);
-      }
-      60% {
-        opacity: 0.9;
-      }
-      100% {
-        opacity: 1;
-        transform: translateX(0) scale(1);
-      }
-    }
-    .btn-card {
-      animation: slideInRight 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
-      transform-origin: center center;
-    }
-  </style>
-
-  <g class="btn-card">
+  <g>
     <!-- Button Card with Rounded Corners & Subtle Border -->
     <rect x="1.5" y="1.5" width="167" height="41" rx="9" fill="url(#btnBg_Instagram)" stroke="url(#border_Instagram)" stroke-width="1.5" />
 

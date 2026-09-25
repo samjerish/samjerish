@@ -214,100 +214,19 @@ def generate_banner_svg(output_path="header_banner.svg", photo_path="github bann
   </defs>
 
   <style>
-    /* 1. Card Horizon Shutter Unfold */
-    @keyframes horizonUnfold {{
-      0% {{
-        transform: scaleY(0.02) scaleX(0.4);
-        opacity: 0;
-      }}
-      20% {{
-        transform: scaleY(0.04) scaleX(1);
-        opacity: 0.95;
-      }}
-      100% {{
-        transform: scaleY(1) scaleX(1);
-        opacity: 1;
-      }}
-    }}
-
-    /* 2. Horizon Flare Beam Pulse & Disperse */
-    @keyframes horizonLaser {{
-      0% {{
-        transform: scaleX(0);
-        opacity: 0;
-      }}
-      25% {{
-        transform: scaleX(1);
-        opacity: 1;
-      }}
-      60% {{
-        transform: scaleX(1.05);
-        opacity: 0.8;
-      }}
-      100% {{
-        transform: scaleX(1.1);
-        opacity: 0;
-      }}
-    }}
-
-    /* 3. Star Flare Ignite Pulse */
-    @keyframes starFlare {{
-      0% {{
-        transform: scale(0);
-        opacity: 0;
-      }}
-      25% {{
-        transform: scale(1.4);
-        opacity: 1;
-      }}
-      60% {{
-        transform: scale(0.8);
-        opacity: 0.4;
-      }}
-      100% {{
-        transform: scale(0);
-        opacity: 0;
-      }}
-    }}
-
-    /* 4. Text Line Cinematic Rise */
-    @keyframes textCinematicRise {{
-      0% {{
-        opacity: 0;
-        transform: translateY(30px) scale(0.96);
-      }}
-      100% {{
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }}
-    }}
-
-    /* 5. Portrait Cinematic Drift In */
-    @keyframes photoCinematicDrift {{
-      0% {{
-        opacity: 0;
-        transform: translateX(40px) scale(0.95);
-      }}
-      100% {{
-        opacity: 1;
-        transform: translateX(0) scale(1);
-      }}
-    }}
-
-    /* 6. Looping Ethereal Light Sheen */
     @keyframes etherealSheenLoop {{
-      0%, 25% {{
+      0%, 20% {{
         transform: translateX(-450px) skewX(-22deg);
         opacity: 0;
       }}
-      38% {{
+      35% {{
         opacity: 0.9;
       }}
-      68% {{
+      65% {{
         transform: translateX(1150px) skewX(-22deg);
         opacity: 0.7;
       }}
-      78%, 100% {{
+      75%, 100% {{
         transform: translateX(1150px) skewX(-22deg);
         opacity: 0;
       }}
@@ -318,21 +237,6 @@ def generate_banner_svg(output_path="header_banner.svg", photo_path="github bann
       50% {{ opacity: 0; }}
     }}
 
-    .shutter-rect {{
-      transform-origin: center center;
-      animation: horizonUnfold 1.35s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }}
-
-    .laser-beam {{
-      transform-origin: center center;
-      animation: horizonLaser 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }}
-
-    .star-flare {{
-      transform-origin: center center;
-      animation: starFlare 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }}
-
     .font-code {{
       font-family: 'Menlo', 'Fira Code', 'JetBrains Mono', 'SF Mono', Consolas, monospace;
       font-size: 34px;
@@ -341,22 +245,8 @@ def generate_banner_svg(output_path="header_banner.svg", photo_path="github bann
       letter-spacing: -0.3px;
     }}
 
-    .line-1 {{
-      animation: textCinematicRise 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
-    }}
-    .line-2 {{
-      animation: textCinematicRise 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
-    }}
-    .line-3 {{
-      animation: textCinematicRise 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
-    }}
-
-    .photo-reveal {{
-      animation: photoCinematicDrift 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
-    }}
-
     .sheen-beam {{
-      animation: etherealSheenLoop 5.5s ease-in-out infinite 1.8s;
+      animation: etherealSheenLoop 5s ease-in-out infinite;
     }}
 
     .blink-cursor {{
@@ -365,45 +255,29 @@ def generate_banner_svg(output_path="header_banner.svg", photo_path="github bann
     }}
   </style>
 
-  <!-- Card Body with Horizon Unfold Reveal -->
-  <g clip-path="url(#horizonShutterClip)">
-    <!-- Base Card Background -->
-    <rect x="1" y="1" width="998" height="338" rx="16" fill="url(#cardBg)" stroke="url(#borderGrad)" stroke-width="1.8" />
+  <!-- Base Card Background -->
+  <rect x="1" y="1" width="998" height="338" rx="16" fill="url(#cardBg)" stroke="url(#borderGrad)" stroke-width="1.8" />
 
-    <!-- Ambient Lighting Layer -->
-    <rect x="1" y="1" width="998" height="338" rx="16" fill="url(#ambientGlow)" />
+  <!-- Ambient Lighting Layer -->
+  <rect x="1" y="1" width="998" height="338" rx="16" fill="url(#ambientGlow)" />
 
-    <!-- Background Tech Dot Grid on Left Side -->
-    <rect x="2" y="2" width="620" height="336" fill="url(#dotGrid)" />
+  <!-- Background Tech Dot Grid on Left Side -->
+  <rect x="2" y="2" width="620" height="336" fill="url(#dotGrid)" />
 
-    <!-- Coding Tagline -->
-    <g transform="translate(60, 110)">
-      <text class="font-code line-1" x="0" y="0">creativity and technology</text>
-      <text class="font-code line-2" x="0" y="54">to craft user-centric</text>
-      <text class="font-code line-3" x="0" y="108">solutions<tspan class="blink-cursor">_</tspan></text>
-    </g>
-
-    <!-- Large Photo with Smooth Cinematic Drift from Right -->
-    <g class="photo-reveal">
-      <image xlink:href="data:image/png;base64,{photo_b64}" href="data:image/png;base64,{photo_b64}" x="625" y="10" width="360" height="330" preserveAspectRatio="xMidYMid meet" />
-    </g>
-
-    <!-- Looping Silky Light Sheen Beam Overlay -->
-    <rect class="sheen-beam" x="0" y="0" width="280" height="340" fill="url(#sheenGrad)" pointer-events="none" />
+  <!-- Coding Tagline -->
+  <g transform="translate(60, 110)">
+    <text class="font-code" x="0" y="0">creativity and technology</text>
+    <text class="font-code" x="0" y="54">to craft user-centric</text>
+    <text class="font-code" x="0" y="108">solutions<tspan class="blink-cursor">_</tspan></text>
   </g>
 
-  <!-- Opening Horizon Laser Beam Effect -->
-  <g class="laser-beam" pointer-events="none">
-    <rect x="0" y="167" width="1000" height="6" fill="url(#horizonBeam)" />
-    <rect x="0" y="168" width="1000" height="3" fill="#ffffff" opacity="0.9" />
+  <!-- Large Photo on Right -->
+  <g>
+    <image xlink:href="data:image/png;base64,{photo_b64}" href="data:image/png;base64,{photo_b64}" x="625" y="10" width="360" height="330" preserveAspectRatio="xMidYMid meet" />
   </g>
 
-  <!-- Opening Central Star Flare Pulse -->
-  <g class="star-flare" transform="translate(500, 170)" pointer-events="none">
-    <circle cx="0" cy="0" r="90" fill="url(#centerIgniteGlow)" />
-    <ellipse cx="0" cy="0" rx="180" ry="4" fill="#ffffff" opacity="0.8" />
-    <ellipse cx="0" cy="0" rx="4" ry="70" fill="#58a6ff" opacity="0.7" />
-  </g>
+  <!-- Continuous Silky Light Sheen Beam Overlay -->
+  <rect class="sheen-beam" x="0" y="0" width="280" height="340" fill="url(#sheenGrad)" pointer-events="none" />
 
   <!-- Outer Static Border to keep card boundary crisp -->
   <rect x="1" y="1" width="998" height="338" rx="16" fill="none" stroke="url(#borderGrad)" stroke-width="1.8" />
