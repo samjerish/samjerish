@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="header_banner.gif" alt="SAM JERISH D - AI & Machine Learning Student, Full-Stack Developer & Robotics Enthusiast" width="100%" />
+  <img src="header_banner.png" alt="SAM JERISH D - AI & Machine Learning Student, Full-Stack Developer & Robotics Enthusiast" width="100%" />
 </div>
 <br />
 
