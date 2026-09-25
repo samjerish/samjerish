@@ -100,10 +100,10 @@ def generate_banner_gif(output_path="header_banner.gif", photo_path="github bann
     base = create_rich_dark_base(w, h, photo_path, scale=1.0)
     bg_blank = Image.new('RGBA', (w, h), (10, 12, 16, 255))
 
-    # Opening wipe entrance (16 frames) + Sheen sweep (42 frames) + Pause (18 frames) = 76 frames (~4.5s)
-    opening_frames = 16
-    sheen_frames = 42
-    pause_frames = 18
+    # Opening horizon flare + shutter unfold (20 frames) + Sheen sweep (40 frames) + Pause (16 frames) = 76 frames (~4.5s)
+    opening_frames = 20
+    sheen_frames = 40
+    pause_frames = 16
     total_frames = opening_frames + sheen_frames + pause_frames
 
     beam_width = 240
@@ -112,31 +112,46 @@ def generate_banner_gif(output_path="header_banner.gif", photo_path="github bann
     frames = []
     for i in range(total_frames):
         if i < opening_frames:
-            # Opening swipe entrance: reveals banner smoothly from left to right
             prog = i / float(opening_frames - 1)
-            eased = 1 - (1 - prog) ** 3
-            wipe_x = int(w * eased)
+            # 1. Horizon split opening
+            if prog < 0.35:
+                # Laser ignition phase
+                laser_prog = prog / 0.35
+                laser_w = int(w * (1 - (1 - laser_prog) ** 2))
+                frame = bg_blank.copy()
+                laser = Image.new('RGBA', (w, h), (0, 0, 0, 0))
+                l_draw = ImageDraw.Draw(laser)
+                lx_start = (w - laser_w) // 2
+                lx_end = (w + laser_w) // 2
+                l_draw.line([(lx_start, h // 2), (lx_end, h // 2)], fill=(88, 166, 255, 240), width=6)
+                l_draw.line([(lx_start, h // 2), (lx_end, h // 2)], fill=(255, 255, 255, 255), width=2)
+                # Star flare center
+                flare_r = int(50 * math.sin(laser_prog * math.pi))
+                if flare_r > 0:
+                    l_draw.ellipse((w // 2 - flare_r, h // 2 - flare_r // 3, w // 2 + flare_r, h // 2 + flare_r // 3), fill=(255, 255, 255, 200))
+                laser = laser.filter(ImageFilter.GaussianBlur(3))
+                frame = Image.alpha_composite(frame, laser)
+            else:
+                # Vertical shutter unfold phase
+                unfold_prog = (prog - 0.35) / 0.65
+                eased_y = 1 - (1 - unfold_prog) ** 3
+                reveal_h = max(2, int(h * eased_y))
+                y_top = (h - reveal_h) // 2
+                y_bot = y_top + reveal_h
 
-            mask = Image.new('L', (w, h), 0)
-            m_draw = ImageDraw.Draw(mask)
-            m_draw.rectangle((0, 0, wipe_x, h), fill=255)
+                mask = Image.new('L', (w, h), 0)
+                m_draw = ImageDraw.Draw(mask)
+                m_draw.rounded_rectangle((0, y_top, w, y_bot), radius=14, fill=255)
+                frame = Image.composite(base, bg_blank, mask)
 
-            # Feather leading edge
-            if wipe_x < w:
-                for fx in range(max(0, wipe_x - 30), min(w, wipe_x + 10)):
-                    ratio = (fx - (wipe_x - 30)) / 40.0
-                    alpha = int(255 * (1 - ratio))
-                    m_draw.line([(fx, 0), (fx, h)], fill=alpha)
-
-            frame = Image.composite(base, bg_blank, mask)
-
-            # Glowing leading beam
-            if wipe_x < w:
-                beam = Image.new('RGBA', (w, h), (0, 0, 0, 0))
-                b_draw = ImageDraw.Draw(beam)
-                b_draw.line([(wipe_x, 0), (wipe_x, h)], fill=(200, 220, 255, 230), width=6)
-                beam = beam.filter(ImageFilter.GaussianBlur(4))
-                frame = Image.alpha_composite(frame, beam)
+                # Horizon glowing border edges during expansion
+                if unfold_prog < 0.9:
+                    edge = Image.new('RGBA', (w, h), (0, 0, 0, 0))
+                    e_draw = ImageDraw.Draw(edge)
+                    e_draw.line([(0, y_top), (w, y_top)], fill=(88, 166, 255, int(200 * (1 - unfold_prog))), width=3)
+                    e_draw.line([(0, y_bot), (w, y_bot)], fill=(88, 166, 255, int(200 * (1 - unfold_prog))), width=3)
+                    edge = edge.filter(ImageFilter.GaussianBlur(2))
+                    frame = Image.alpha_composite(frame, edge)
 
         elif i < opening_frames + sheen_frames:
             # Sheen sweep across full banner
@@ -191,29 +206,37 @@ def generate_banner_svg(output_path="header_banner.svg", photo_path="github bann
       <stop offset="100%" stop-color="#090b0e" />
     </linearGradient>
 
-    <radialGradient id="ambientGlow" cx="75%" cy="50%" r="65%">
-      <stop offset="0%" stop-color="#283548" stop-opacity="0.5" />
-      <stop offset="55%" stop-color="#161b22" stop-opacity="0.15" />
+    <radialGradient id="ambientGlow" cx="78%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="#283548" stop-opacity="0.55" />
+      <stop offset="55%" stop-color="#161b22" stop-opacity="0.18" />
       <stop offset="100%" stop-color="#0a0c10" stop-opacity="0" />
     </radialGradient>
 
+    <radialGradient id="centerIgniteGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#58a6ff" stop-opacity="0.9" />
+      <stop offset="30%" stop-color="#388bfd" stop-opacity="0.5" />
+      <stop offset="70%" stop-color="#1f6feb" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#0d1117" stop-opacity="0" />
+    </radialGradient>
+
     <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#30363d" stop-opacity="0.9" />
-      <stop offset="50%" stop-color="#58a6ff" stop-opacity="0.4" />
+      <stop offset="0%" stop-color="#30363d" stop-opacity="0.95" />
+      <stop offset="50%" stop-color="#58a6ff" stop-opacity="0.45" />
       <stop offset="100%" stop-color="#21262d" stop-opacity="0.85" />
     </linearGradient>
 
-    <linearGradient id="beamGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+    <linearGradient id="horizonBeam" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#58a6ff" stop-opacity="0" />
+      <stop offset="25%" stop-color="#58a6ff" stop-opacity="0.3" />
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.95" />
+      <stop offset="75%" stop-color="#58a6ff" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#58a6ff" stop-opacity="0" />
+    </linearGradient>
+
+    <linearGradient id="sheenGrad" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
       <stop offset="50%" stop-color="#58a6ff" stop-opacity="0.25" />
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
-    </linearGradient>
-
-    <linearGradient id="swipeBeamGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#58a6ff" stop-opacity="0" />
-      <stop offset="40%" stop-color="#58a6ff" stop-opacity="0.2" />
-      <stop offset="80%" stop-color="#79c0ff" stop-opacity="0.7" />
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.95" />
     </linearGradient>
 
     <!-- Tech Dot Grid Pattern -->
@@ -221,77 +244,108 @@ def generate_banner_svg(output_path="header_banner.svg", photo_path="github bann
       <circle cx="12" cy="12" r="1.2" fill="#30363d" opacity="0.45" />
     </pattern>
 
-    <!-- Clip path for ultra-smooth opening swipe -->
-    <clipPath id="wipeClip">
-      <rect class="wipe-rect" x="0" y="0" width="1000" height="340" rx="16" />
+    <!-- Smooth Horizon Expansion Clip -->
+    <clipPath id="horizonShutterClip">
+      <rect class="shutter-rect" x="0" y="0" width="1000" height="340" rx="16" />
     </clipPath>
   </defs>
 
   <style>
-    @keyframes openingWipe {{
+    /* 1. Card Horizon Shutter Unfold */
+    @keyframes horizonUnfold {{
       0% {{
-        width: 0px;
-        transform: scaleX(0);
-      }}
-      100% {{
-        width: 1000px;
-        transform: scaleX(1);
-      }}
-    }}
-
-    @keyframes openingLeadingBeam {{
-      0% {{
-        transform: translateX(-60px);
+        transform: scaleY(0.02) scaleX(0.4);
         opacity: 0;
       }}
-      12% {{
+      20% {{
+        transform: scaleY(0.04) scaleX(1);
         opacity: 0.95;
       }}
-      85% {{
-        opacity: 0.85;
+      100% {{
+        transform: scaleY(1) scaleX(1);
+        opacity: 1;
+      }}
+    }}
+
+    /* 2. Horizon Flare Beam Pulse & Disperse */
+    @keyframes horizonLaser {{
+      0% {{
+        transform: scaleX(0);
+        opacity: 0;
+      }}
+      25% {{
+        transform: scaleX(1);
+        opacity: 1;
+      }}
+      60% {{
+        transform: scaleX(1.05);
+        opacity: 0.8;
       }}
       100% {{
-        transform: translateX(1020px);
+        transform: scaleX(1.1);
         opacity: 0;
       }}
     }}
 
-    @keyframes smoothSlideInLeft {{
+    /* 3. Star Flare Ignite Pulse */
+    @keyframes starFlare {{
+      0% {{
+        transform: scale(0);
+        opacity: 0;
+      }}
+      25% {{
+        transform: scale(1.4);
+        opacity: 1;
+      }}
+      60% {{
+        transform: scale(0.8);
+        opacity: 0.4;
+      }}
+      100% {{
+        transform: scale(0);
+        opacity: 0;
+      }}
+    }}
+
+    /* 4. Text Line Cinematic Rise */
+    @keyframes textCinematicRise {{
       0% {{
         opacity: 0;
-        transform: translateX(-45px);
+        transform: translateY(30px) scale(0.96);
       }}
       100% {{
         opacity: 1;
-        transform: translateX(0);
+        transform: translateY(0) scale(1);
       }}
     }}
 
-    @keyframes smoothSlideInRight {{
+    /* 5. Portrait Cinematic Drift In */
+    @keyframes photoCinematicDrift {{
       0% {{
         opacity: 0;
-        transform: translateX(50px);
+        transform: translateX(40px) scale(0.95);
       }}
       100% {{
         opacity: 1;
-        transform: translateX(0);
+        transform: translateX(0) scale(1);
       }}
     }}
 
-    @keyframes lightSweepLoop {{
+    /* 6. Looping Ethereal Light Sheen */
+    @keyframes etherealSheenLoop {{
       0%, 25% {{
-        transform: translateX(-450px) skewX(-20deg);
+        transform: translateX(-450px) skewX(-22deg);
         opacity: 0;
       }}
-      35% {{
+      38% {{
         opacity: 0.9;
       }}
-      65% {{
-        transform: translateX(1150px) skewX(-20deg);
+      68% {{
+        transform: translateX(1150px) skewX(-22deg);
         opacity: 0.7;
       }}
-      75%, 100% {{
-        transform: translateX(1150px) skewX(-20deg);
+      78%, 100% {{
+        transform: translateX(1150px) skewX(-22deg);
         opacity: 0;
       }}
     }}
@@ -301,13 +355,19 @@ def generate_banner_svg(output_path="header_banner.svg", photo_path="github bann
       50% {{ opacity: 0; }}
     }}
 
-    .wipe-rect {{
-      transform-origin: left center;
-      animation: openingWipe 1.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+    .shutter-rect {{
+      transform-origin: center center;
+      animation: horizonUnfold 1.35s cubic-bezier(0.16, 1, 0.3, 1) both;
     }}
 
-    .opening-beam {{
-      animation: openingLeadingBeam 1.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+    .laser-beam {{
+      transform-origin: center center;
+      animation: horizonLaser 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }}
+
+    .star-flare {{
+      transform-origin: center center;
+      animation: starFlare 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
     }}
 
     .font-code {{
@@ -319,21 +379,21 @@ def generate_banner_svg(output_path="header_banner.svg", photo_path="github bann
     }}
 
     .line-1 {{
-      animation: smoothSlideInLeft 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+      animation: textCinematicRise 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
     }}
     .line-2 {{
-      animation: smoothSlideInLeft 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
+      animation: textCinematicRise 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
     }}
     .line-3 {{
-      animation: smoothSlideInLeft 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.44s both;
+      animation: textCinematicRise 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
     }}
 
     .photo-reveal {{
-      animation: smoothSlideInRight 1.05s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
+      animation: photoCinematicDrift 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
     }}
 
-    .sweep-beam {{
-      animation: lightSweepLoop 5s ease-in-out infinite 1.4s;
+    .sheen-beam {{
+      animation: etherealSheenLoop 5.5s ease-in-out infinite 1.8s;
     }}
 
     .blink-cursor {{
@@ -342,8 +402,8 @@ def generate_banner_svg(output_path="header_banner.svg", photo_path="github bann
     }}
   </style>
 
-  <!-- Container with Opening Swipe Transition -->
-  <g clip-path="url(#wipeClip)">
+  <!-- Card Body with Horizon Unfold Reveal -->
+  <g clip-path="url(#horizonShutterClip)">
     <!-- Base Card Background -->
     <rect x="1" y="1" width="998" height="338" rx="16" fill="url(#cardBg)" stroke="url(#borderGrad)" stroke-width="1.8" />
 
@@ -360,17 +420,27 @@ def generate_banner_svg(output_path="header_banner.svg", photo_path="github bann
       <text class="font-code line-3" x="0" y="108">solutions<tspan class="blink-cursor">_</tspan></text>
     </g>
 
-    <!-- Large Photo with Smooth Slide-in from Right -->
+    <!-- Large Photo with Smooth Cinematic Drift from Right -->
     <g class="photo-reveal">
       <image href="data:image/png;base64,{photo_b64}" x="625" y="10" width="360" height="330" preserveAspectRatio="xMidYMid meet" />
     </g>
 
-    <!-- Looping Silky Light Sweep Beam Overlay -->
-    <rect class="sweep-beam" x="0" y="0" width="280" height="340" fill="url(#beamGrad)" pointer-events="none" />
+    <!-- Looping Silky Light Sheen Beam Overlay -->
+    <rect class="sheen-beam" x="0" y="0" width="280" height="340" fill="url(#sheenGrad)" pointer-events="none" />
   </g>
 
-  <!-- Opening Leading Glow Beam during initial swipe -->
-  <rect class="opening-beam" x="-60" y="0" width="60" height="340" fill="url(#swipeBeamGrad)" pointer-events="none" />
+  <!-- Opening Horizon Laser Beam Effect -->
+  <g class="laser-beam" pointer-events="none">
+    <rect x="0" y="167" width="1000" height="6" fill="url(#horizonBeam)" />
+    <rect x="0" y="168" width="1000" height="3" fill="#ffffff" opacity="0.9" />
+  </g>
+
+  <!-- Opening Central Star Flare Pulse -->
+  <g class="star-flare" transform="translate(500, 170)" pointer-events="none">
+    <circle cx="0" cy="0" r="90" fill="url(#centerIgniteGlow)" />
+    <ellipse cx="0" cy="0" rx="180" ry="4" fill="#ffffff" opacity="0.8" />
+    <ellipse cx="0" cy="0" rx="4" ry="70" fill="#58a6ff" opacity="0.7" />
+  </g>
 
   <!-- Outer Static Border to keep card boundary crisp -->
   <rect x="1" y="1" width="998" height="338" rx="16" fill="none" stroke="url(#borderGrad)" stroke-width="1.8" />
