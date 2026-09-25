@@ -98,68 +98,25 @@ def generate_banner_png(output_path="header_banner.png", photo_path="github bann
 def generate_banner_gif(output_path="header_banner.gif", photo_path="github banner.png"):
     w, h = 1000, 340
     base = create_rich_dark_base(w, h, photo_path, scale=1.0)
-    bg_blank = Image.new('RGBA', (w, h), (10, 12, 16, 255))
 
-    # Opening horizon flare + shutter unfold (22 frames) + Sheen sweep (38 frames) + Pause (14 frames) = 74 frames (~3.7s)
-    opening_frames = 22
-    sheen_frames = 38
-    pause_frames = 14
-    total_frames = opening_frames + sheen_frames + pause_frames
+    # 48 frames loop for ultra-smooth continuous light sweep (~2.4s per loop)
+    total_frames = 48
+    sweep_frames = 38
+    pause_frames = 10
 
     beam_width = 240
     tilt = 0.38
 
     frames = []
     for i in range(total_frames):
-        if i < opening_frames:
-            prog = i / float(opening_frames - 1)
-            # 1. Horizon split opening
-            if prog < 0.35:
-                # Laser ignition phase
-                laser_prog = prog / 0.35
-                laser_w = int(w * (1 - (1 - laser_prog) ** 2))
-                frame = bg_blank.copy()
-                laser = Image.new('RGBA', (w, h), (0, 0, 0, 0))
-                l_draw = ImageDraw.Draw(laser)
-                lx_start = (w - laser_w) // 2
-                lx_end = (w + laser_w) // 2
-                l_draw.line([(lx_start, h // 2), (lx_end, h // 2)], fill=(88, 166, 255, 240), width=6)
-                l_draw.line([(lx_start, h // 2), (lx_end, h // 2)], fill=(255, 255, 255, 255), width=2)
-                # Star flare center
-                flare_r = int(50 * math.sin(laser_prog * math.pi))
-                if flare_r > 0:
-                    l_draw.ellipse((w // 2 - flare_r, h // 2 - flare_r // 3, w // 2 + flare_r, h // 2 + flare_r // 3), fill=(255, 255, 255, 200))
-                laser = laser.filter(ImageFilter.GaussianBlur(3))
-                frame = Image.alpha_composite(frame, laser)
-            else:
-                # Vertical shutter unfold phase
-                unfold_prog = (prog - 0.35) / 0.65
-                eased_y = 1 - (1 - unfold_prog) ** 3
-                reveal_h = max(2, int(h * eased_y))
-                y_top = (h - reveal_h) // 2
-                y_bot = y_top + reveal_h
+        frame = base.copy()
 
-                mask = Image.new('L', (w, h), 0)
-                m_draw = ImageDraw.Draw(mask)
-                m_draw.rounded_rectangle((0, y_top, w, y_bot), radius=14, fill=255)
-                frame = Image.composite(base, bg_blank, mask)
+        if i < sweep_frames:
+            prog = i / float(sweep_frames - 1)
+            # Cubic ease-in-out for silky travel
+            eased_prog = 0.5 * (1 - math.cos(prog * math.pi))
+            center_x = -280 + eased_prog * 1560
 
-                # Horizon glowing border edges during expansion
-                if unfold_prog < 0.9:
-                    edge = Image.new('RGBA', (w, h), (0, 0, 0, 0))
-                    e_draw = ImageDraw.Draw(edge)
-                    e_draw.line([(0, y_top), (w, y_top)], fill=(88, 166, 255, int(200 * (1 - unfold_prog))), width=3)
-                    e_draw.line([(0, y_bot), (w, y_bot)], fill=(88, 166, 255, int(200 * (1 - unfold_prog))), width=3)
-                    edge = edge.filter(ImageFilter.GaussianBlur(2))
-                    frame = Image.alpha_composite(frame, edge)
-
-        elif i < opening_frames + sheen_frames:
-            # Sheen sweep across full banner
-            sheen_i = i - opening_frames
-            prog = sheen_i / float(sheen_frames - 1)
-            center_x = -260 + prog * 1520
-
-            frame = base.copy()
             sheen = Image.new('RGBA', (w, h), (0, 0, 0, 0))
             sheen_draw = ImageDraw.Draw(sheen)
 
@@ -168,8 +125,8 @@ def generate_banner_gif(output_path="header_banner.gif", photo_path="github bann
                 t = s / float(steps)
                 offset = t * (beam_width / 2.0)
                 dist = abs(t)
-                alpha_wide = 40 * math.exp(-3.0 * (dist ** 2))
-                alpha_core = 50 * math.exp(-12.0 * (dist ** 2))
+                alpha_wide = 42 * math.exp(-3.2 * (dist ** 2))
+                alpha_core = 55 * math.exp(-14.0 * (dist ** 2))
                 alpha = int(min(255, alpha_wide + alpha_core))
 
                 if alpha > 0:
@@ -178,17 +135,15 @@ def generate_banner_gif(output_path="header_banner.gif", photo_path="github bann
                     sheen_draw.line([(x_top, 0), (x_bot, h)], fill=(255, 255, 255, alpha), width=4)
 
             frame = Image.alpha_composite(frame, sheen)
-        else:
-            frame = base.copy()
 
         frames.append(frame.convert('RGB'))
 
     palette_img = base.convert('RGB').quantize(colors=256)
     quantized_frames = [f.quantize(palette=palette_img) for f in frames]
 
-    # loop=1 ensures the opening animation plays exactly ONCE and holds on the final banner frame
-    quantized_frames[0].save(output_path, save_all=True, append_images=quantized_frames[1:], duration=50, loop=1, optimize=True)
-    print(f"Generated {output_path} successfully ({w}x{h}, {len(quantized_frames)} frames, one-time opening)")
+    # loop=0 ensures the light sweep is ALWAYS running continuously
+    quantized_frames[0].save(output_path, save_all=True, append_images=quantized_frames[1:], duration=50, loop=0, optimize=True)
+    print(f"Generated {output_path} successfully ({w}x{h}, {len(quantized_frames)} frames, continuous light sweep)")
 
 
 def generate_banner_svg(output_path="header_banner.svg", photo_path="github banner.png"):
