@@ -2,7 +2,7 @@ import os
 import math
 from PIL import Image, ImageDraw, ImageFont
 
-def generate_banner_png(output_path="header_banner.png", avatar_path="profile.png"):
+def generate_banner_png(output_path="header_banner.png", avatar_path="github.png"):
     # 2x Retina resolution: 2000 x 680 (displays crisp at 1000 x 340)
     w, h = 2000, 680
     banner = Image.new('RGBA', (w, h), (252, 244, 250, 255))
@@ -27,31 +27,34 @@ def generate_banner_png(output_path="header_banner.png", avatar_path="profile.pn
     sub2_y = sub1_y + 70
     draw.text((text_x, sub2_y), 'robotics & computer vision enthusiast', fill=(108, 98, 126, 255), font=font_sub)
 
-    # Right side: Circular portrait (2x)
-    av_size = 500
+    # Right side: PNG portrait card (2x)
+    av_size = 480
     if os.path.exists(avatar_path):
         avatar = Image.open(avatar_path).convert('RGBA')
         avatar = avatar.resize((av_size, av_size), Image.LANCZOS)
 
+        radius = 32
         mask = Image.new('L', (av_size, av_size), 0)
         mask_draw = ImageDraw.Draw(mask)
-        mask_draw.ellipse((0, 0, av_size, av_size), fill=255)
+        mask_draw.rounded_rectangle((0, 0, av_size, av_size), radius=radius, fill=255)
 
-        ring_size = av_size + 28
-        av_x = w - ring_size - 100
-        av_y = (h - ring_size) // 2
+        pad = 12
+        card_w = av_size + 2 * pad
+        card_h = av_size + 2 * pad
+        av_x = w - card_w - 90
+        av_y = (h - card_h) // 2
 
-        # Subtle outer shadow and clean white ring
-        draw.ellipse((av_x - 6, av_y - 2, av_x + ring_size + 6, av_y + ring_size + 10), fill=(232, 218, 230, 255))
-        draw.ellipse((av_x, av_y, av_x + ring_size, av_y + ring_size), fill=(255, 255, 255, 255))
+        # Subtle outer shadow and clean white card frame
+        draw.rounded_rectangle((av_x - 6, av_y - 2, av_x + card_w + 6, av_y + card_h + 10), radius=radius + pad, fill=(232, 218, 230, 255))
+        draw.rounded_rectangle((av_x, av_y, av_x + card_w, av_y + card_h), radius=radius + pad, fill=(255, 255, 255, 255))
 
-        banner.paste(avatar, (av_x + 14, av_y + 14), mask)
+        banner.paste(avatar, (av_x + pad, av_y + pad), mask)
 
     banner.save(output_path, 'PNG', optimize=True)
     print(f"Generated {output_path} successfully ({w}x{h})")
 
 
-def generate_banner_gif(output_path="header_banner.gif", avatar_path="profile.png"):
+def generate_banner_gif(output_path="header_banner.gif", avatar_path="github.png"):
     w, h = 1000, 340
     base = Image.new('RGBA', (w, h), (252, 244, 250, 255))
     draw_base = ImageDraw.Draw(base)
@@ -74,24 +77,27 @@ def generate_banner_gif(output_path="header_banner.gif", avatar_path="profile.pn
     sub2_y = sub1_y + 35
     draw_base.text((text_x, sub2_y), 'robotics & computer vision enthusiast', fill=(108, 98, 126, 255), font=font_sub)
 
-    # Right side: Circular portrait
-    av_size = 250
+    # Right side: PNG portrait card
+    av_size = 240
     if os.path.exists(avatar_path):
         avatar = Image.open(avatar_path).convert('RGBA')
         avatar = avatar.resize((av_size, av_size), Image.LANCZOS)
 
+        radius = 16
         mask = Image.new('L', (av_size, av_size), 0)
         mask_draw = ImageDraw.Draw(mask)
-        mask_draw.ellipse((0, 0, av_size, av_size), fill=255)
+        mask_draw.rounded_rectangle((0, 0, av_size, av_size), radius=radius, fill=255)
 
-        ring_size = av_size + 14
-        av_x = w - ring_size - 50
-        av_y = (h - ring_size) // 2
+        pad = 6
+        card_w = av_size + 2 * pad
+        card_h = av_size + 2 * pad
+        av_x = w - card_w - 45
+        av_y = (h - card_h) // 2
 
-        # Outer soft shadow & white ring
-        draw_base.ellipse((av_x - 3, av_y - 1, av_x + ring_size + 3, av_y + ring_size + 5), fill=(232, 218, 230, 255))
-        draw_base.ellipse((av_x, av_y, av_x + ring_size, av_y + ring_size), fill=(255, 255, 255, 255))
-        base.paste(avatar, (av_x + 7, av_y + 7), mask)
+        # Outer soft shadow & white frame
+        draw_base.rounded_rectangle((av_x - 3, av_y - 1, av_x + card_w + 3, av_y + card_h + 5), radius=radius + pad, fill=(232, 218, 230, 255))
+        draw_base.rounded_rectangle((av_x, av_y, av_x + card_w, av_y + card_h), radius=radius + pad, fill=(255, 255, 255, 255))
+        base.paste(avatar, (av_x + pad, av_y + pad), mask)
 
     # Swipe animation:
     # 52 frames swipe (~3.1s) + 24 frames calm pause (~1.4s) = 76 frames total at 60ms (~4.5s loop)
