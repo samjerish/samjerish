@@ -186,16 +186,24 @@ def generate_banner_gif(output_path="header_banner.gif", photo_path="github bann
     palette_img = base.convert('RGB').quantize(colors=256)
     quantized_frames = [f.quantize(palette=palette_img) for f in frames]
 
-    quantized_frames[0].save(output_path, save_all=True, append_images=quantized_frames[1:], duration=50, loop=0, optimize=True)
-    print(f"Generated {output_path} successfully ({w}x{h}, {len(quantized_frames)} frames)")
+    # loop=1 ensures the opening animation plays exactly ONCE and holds on the final banner frame
+    quantized_frames[0].save(output_path, save_all=True, append_images=quantized_frames[1:], duration=50, loop=1, optimize=True)
+    print(f"Generated {output_path} successfully ({w}x{h}, {len(quantized_frames)} frames, one-time opening)")
 
 
 def generate_banner_svg(output_path="header_banner.svg", photo_path="github banner.png"):
     import base64
+    import io
     photo_b64 = ""
     if os.path.exists(photo_path):
-        with open(photo_path, "rb") as f:
-            photo_b64 = base64.b64encode(f.read()).decode("utf-8")
+        photo_raw = Image.open(photo_path).convert('RGBA')
+        aspect = photo_raw.width / photo_raw.height
+        h_target = 660
+        w_target = int(h_target * aspect)
+        photo_resized = photo_raw.resize((w_target, h_target), Image.LANCZOS)
+        buf = io.BytesIO()
+        photo_resized.save(buf, format='PNG', optimize=True)
+        photo_b64 = base64.b64encode(buf.getvalue()).decode("utf-8")
 
     svg = f"""<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 340" width="1000" height="340">
   <defs>
