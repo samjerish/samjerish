@@ -8,15 +8,15 @@ def generate_terminal_svg(output_path="terminal.svg"):
         {"type": "cmd", "prompt": "samjerish@quantum-core:~$", "cmd": "whoami --bio"},
         {"type": "title", "text": "SAM JERISH D"},
         {"type": "badge", "text": "AI & Machine Learning Student  •  Full-Stack Developer"},
-        {"type": "quote", "text": "Passionate about AI, Robotics, Computer Vision, and turning into real-world solutions."},
+        {"type": "quote", "text": "Creativity and technology to craft user-centric solutions."},
         {"type": "empty"},
 
         {"type": "cmd", "prompt": "samjerish@quantum-core:~$", "cmd": "neofetch --developer"},
         {"type": "spec", "key": "OS", "val": "macOS Sonoma (Darwin arm64)"},
         {"type": "spec", "key": "Host", "val": "AI, Vision & Robotics Workstation"},
-        {"type": "spec", "key": "Focus", "val": "Artificial Intelligence, Deep Learning & Computer Vision"},
+        {"type": "spec", "key": "Focus", "val": "Artificial Intelligence, Deep Learning & Robotics"},
         {"type": "spec", "key": "Robotics", "val": "Intelligent Navigation, Obstacle Avoidance & Perception"},
-        {"type": "spec", "key": "Stack", "val": "Python, C++, PyTorch, OpenCV, React, Node.js, SQL"},
+        {"type": "spec", "key": "Stack", "val": "Python, PyTorch, OpenCV, React, Node.js, C++, TypeScript"},
         {"type": "spec", "key": "Status", "val": "Developing real-world autonomous systems & scalable apps 🚀"},
         {"type": "empty"},
 
@@ -36,6 +36,8 @@ def generate_terminal_svg(output_path="terminal.svg"):
 
     svg_content = []
     current_y = start_y
+    anim_index = 1
+    css_rules = []
 
     for item in lines:
         item_type = item["type"]
@@ -44,78 +46,83 @@ def generate_terminal_svg(output_path="terminal.svg"):
             current_y += 14
             continue
 
+        delay = round(0.12 + anim_index * 0.1, 2)
+        css_rules.append(f'.anim-{anim_index} {{ animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) {delay}s both; }}')
+
         if item_type == "cmd":
             prompt = escape_xml(item["prompt"])
             cmd = escape_xml(item["cmd"])
             svg_content.append(
-                f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
+                f'<g class="anim-{anim_index}"><text class="font-mono" x="{start_x}" y="{current_y}">'
                 f'<tspan fill="#3fb950" font-weight="700">{prompt}</tspan> '
                 f'<tspan fill="#58a6ff" font-weight="600">{cmd}</tspan>'
-                f'</text>'
+                f'</text></g>'
             )
 
         elif item_type == "title":
             text = escape_xml(item["text"])
             svg_content.append(
-                f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
+                f'<g class="anim-{anim_index}"><text class="font-mono" x="{start_x}" y="{current_y}">'
                 f'<tspan fill="#d2a8ff" font-size="18px" font-weight="800">⚡ {text}</tspan>'
-                f'</text>'
+                f'</text></g>'
             )
 
         elif item_type == "badge":
             text = escape_xml(item["text"])
             svg_content.append(
-                f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
+                f'<g class="anim-{anim_index}"><text class="font-mono" x="{start_x}" y="{current_y}">'
                 f'<tspan fill="#79c0ff" font-weight="600">❯ {text}</tspan>'
-                f'</text>'
+                f'</text></g>'
             )
 
         elif item_type == "quote":
             text = escape_xml(item["text"])
             svg_content.append(
-                f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
+                f'<g class="anim-{anim_index}"><text class="font-mono" x="{start_x}" y="{current_y}">'
                 f'<tspan fill="#8b949e" font-style="italic">  &quot;{text}&quot;</tspan>'
-                f'</text>'
+                f'</text></g>'
             )
 
         elif item_type == "spec":
             key = escape_xml(item["key"])
             val = escape_xml(item["val"])
             svg_content.append(
-                f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
+                f'<g class="anim-{anim_index}"><text class="font-mono" x="{start_x}" y="{current_y}">'
                 f'<tspan fill="#ff7b72" font-weight="700">  [{key}]</tspan>'
                 f'<tspan fill="#c9d1d9"> : </tspan>'
                 f'<tspan fill="#f0883e">{val}</tspan>'
-                f'</text>'
+                f'</text></g>'
             )
 
         elif item_type == "git_branch":
             text = escape_xml(item["text"])
             svg_content.append(
-                f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
+                f'<g class="anim-{anim_index}"><text class="font-mono" x="{start_x}" y="{current_y}">'
                 f'<tspan fill="#e3b341">  ⎇ {text}</tspan>'
-                f'</text>'
+                f'</text></g>'
             )
 
         elif item_type == "git_success":
             text = escape_xml(item["text"])
             svg_content.append(
-                f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
+                f'<g class="anim-{anim_index}"><text class="font-mono" x="{start_x}" y="{current_y}">'
                 f'<tspan fill="#3fb950" font-weight="600">  {text}</tspan>'
-                f'</text>'
+                f'</text></g>'
             )
 
         elif item_type == "prompt_cursor":
             prompt = escape_xml(item["prompt"])
             svg_content.append(
-                f'<text class="font-mono line" x="{start_x}" y="{current_y}">'
+                f'<g class="anim-{anim_index}"><text class="font-mono" x="{start_x}" y="{current_y}">'
                 f'<tspan fill="#3fb950" font-weight="700">{prompt}</tspan> '
                 f'<tspan class="cursor">█</tspan>'
-                f'</text>'
+                f'</text></g>'
             )
 
+        anim_index += 1
         current_y += line_height
 
+    css_rules_str = "\n    ".join(css_rules)
     svg_content_str = "\n    ".join(svg_content)
 
     svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {svg_width} {svg_height}" width="{svg_width}" height="{svg_height}">
@@ -126,7 +133,7 @@ def generate_terminal_svg(output_path="terminal.svg"):
     </linearGradient>
     <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#30363d" />
-      <stop offset="50%" stop-color="#58a6ff" stop-opacity="0.4" />
+      <stop offset="50%" stop-color="#58a6ff" stop-opacity="0.6" />
       <stop offset="100%" stop-color="#30363d" />
     </linearGradient>
   </defs>
@@ -137,9 +144,11 @@ def generate_terminal_svg(output_path="terminal.svg"):
       font-size: 14.5px;
       letter-spacing: -0.2px;
     }}
-    .line {{
-      opacity: 1;
+    @keyframes fadeInUp {{
+      0% {{ opacity: 0; transform: translateY(6px); }}
+      100% {{ opacity: 1; transform: translateY(0); }}
     }}
+    {css_rules_str}
     .cursor {{
       fill: #58a6ff;
       animation: blink 0.9s infinite;
