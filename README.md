@@ -1,5 +1,3 @@
-# Hi, I'm Sam Jerish 👋 💻
-
 <div align="center">
   <img src="header_banner.gif" alt="SAM JERISH D - AI & Machine Learning Student, Full-Stack Developer & Robotics Enthusiast" width="100%" />
 </div>
