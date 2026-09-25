@@ -100,10 +100,10 @@ def generate_banner_gif(output_path="header_banner.gif", photo_path="github bann
     base = create_rich_dark_base(w, h, photo_path, scale=1.0)
     bg_blank = Image.new('RGBA', (w, h), (10, 12, 16, 255))
 
-    # Opening horizon flare + shutter unfold (20 frames) + Sheen sweep (40 frames) + Pause (16 frames) = 76 frames (~4.5s)
-    opening_frames = 20
-    sheen_frames = 40
-    pause_frames = 16
+    # Opening horizon flare + shutter unfold (22 frames) + Sheen sweep (38 frames) + Pause (14 frames) = 74 frames (~3.7s)
+    opening_frames = 22
+    sheen_frames = 38
+    pause_frames = 14
     total_frames = opening_frames + sheen_frames + pause_frames
 
     beam_width = 240
@@ -186,7 +186,7 @@ def generate_banner_gif(output_path="header_banner.gif", photo_path="github bann
     palette_img = base.convert('RGB').quantize(colors=256)
     quantized_frames = [f.quantize(palette=palette_img) for f in frames]
 
-    quantized_frames[0].save(output_path, save_all=True, append_images=quantized_frames[1:], duration=60, loop=0, optimize=True)
+    quantized_frames[0].save(output_path, save_all=True, append_images=quantized_frames[1:], duration=50, loop=0, optimize=True)
     print(f"Generated {output_path} successfully ({w}x{h}, {len(quantized_frames)} frames)")
 
 
@@ -197,7 +197,7 @@ def generate_banner_svg(output_path="header_banner.svg", photo_path="github bann
         with open(photo_path, "rb") as f:
             photo_b64 = base64.b64encode(f.read()).decode("utf-8")
 
-    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 340" width="1000" height="340">
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 340" width="1000" height="340">
   <defs>
     <!-- Background Gradients -->
     <linearGradient id="cardBg" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -422,7 +422,7 @@ def generate_banner_svg(output_path="header_banner.svg", photo_path="github bann
 
     <!-- Large Photo with Smooth Cinematic Drift from Right -->
     <g class="photo-reveal">
-      <image href="data:image/png;base64,{photo_b64}" x="625" y="10" width="360" height="330" preserveAspectRatio="xMidYMid meet" />
+      <image xlink:href="data:image/png;base64,{photo_b64}" href="data:image/png;base64,{photo_b64}" x="625" y="10" width="360" height="330" preserveAspectRatio="xMidYMid meet" />
     </g>
 
     <!-- Looping Silky Light Sheen Beam Overlay -->
